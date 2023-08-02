@@ -4,6 +4,3 @@
 
 ### 1.运行npm install
 ### 2.运行npm start
-
-
-"# questionnaire" 

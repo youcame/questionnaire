@@ -2,7 +2,7 @@ import { GithubOutlined } from '@ant-design/icons';
 import { DefaultFooter } from '@ant-design/pro-components';
 import {BILIBILI_LINK} from "@/constants";
 const Footer: React.FC = () => {
-  const defaultMessage = '东b出品，必为精品';
+  const defaultMessage = '东b出品,必为辣鸡';
   const currentYear = new Date().getFullYear();
   return (
     <DefaultFooter

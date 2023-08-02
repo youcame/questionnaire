@@ -7,6 +7,7 @@ import { history, useLocation } from 'umi';
 import {AN1, AN2, AN3, AN4,} from "@/constants";
 import {MyChart} from "@/pages/Admin/SeeQuestionnaire/myComponent";
 
+// @ts-ignore
 const Countdown = ({ minutes, onTimeout }) => {
   const [remainingSeconds, setRemainingSeconds] = useState(minutes * 60);
 
@@ -136,13 +137,11 @@ const SurveyDisplayPage = () => {
         )}
       </Typography.Title>
       <Divider type="vertical" />
-
       <ProForm onFinish={handleFormSubmit} initialValues={surveyData?.addQuestion}>
-        <ProForm.Item name={'answerSheet'}>
-          {addQuestion.map((question, index) => {
-            const questionData = answerData?.questions[index];
-            const isDataStatsVisible = showDataStats[index]; // 新增的状态
-
+      <ProForm.Item name={'answerSheet'}>
+      {addQuestion.map((question, index) => {
+        const questionData = answerData?.questions[index];
+        const isDataStatsVisible = showDataStats[index]; // 新增的状态
             return (
               <ProCard
                 key={question.questionName}

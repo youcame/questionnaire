@@ -2,10 +2,6 @@ import Footer from '@/components/Footer';
 import { login } from '@/services/ant-design-pro/api';
 import { SYSTEM_LOGO }  from '@/constants'
 import {
-  LockOutlined,
-  UserOutlined,
-} from '@ant-design/icons';
-import {
   LoginForm,
   ProFormCheckbox,
   ProFormText,
@@ -15,6 +11,7 @@ import React, { useState } from 'react';
 import { history, useModel } from 'umi';
 import styles from './index.less';
 import {API} from "@/services/ant-design-pro/typings";
+import { LockOutlined, UserOutlined } from '@ant-design/icons';
 
 const LoginMessage: React.FC<{
   content: string;
@@ -137,7 +134,7 @@ const Login: React.FC = () => {
             <ProFormCheckbox noStyle name="autoLogin">
               自动登录
             </ProFormCheckbox>
-            <Divider type={"vertical"}></Divider>
+            <Divider type={"vertical"} />
             <a
               style={{
                 float: 'right',

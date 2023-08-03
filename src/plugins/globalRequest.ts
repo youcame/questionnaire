@@ -14,6 +14,7 @@ const WHITE_LIST = ['/user/register',loginPath];
  */
 const request = extend({
   credentials: 'include', // 默认请求是否带上cookie
+  prefix: process.env.NODE_ENV === 'development' ? undefined : 'http://flandre.ltd'
   // requestType: 'form',
 });
 

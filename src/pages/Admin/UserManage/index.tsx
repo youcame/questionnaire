@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react';
 import type { ProColumns, ActionType } from '@ant-design/pro-table';
-import ProTable, { TableDropdown } from '@ant-design/pro-table';
+import ProTable from '@ant-design/pro-table';
 import {deleteUser, modifyUser, register, searchUsers} from "@/services/ant-design-pro/api";
 import {Button, Form, Image, Input, Modal, message} from "antd";
 import {API} from "@/services/ant-design-pro/typings";
@@ -110,12 +110,8 @@ export default () => {
       const result = await register(values);
       console.log(values);
       if(result > 0)message.success('注册成功');
-      else if(result == -1)message.error("账户名不能包含特殊字符~");
-      else if(result == -2)message.error("两次输入的密码不同哦~");
-      else if(result == -3)message.error("这个账户已经被注册过啦~");
-      else if(result == -4)message.error("注册失败了~");
     }catch(error){
-      message.error("注册失败了！")
+      message.error("注册失败了,不造为啥！")
     }
     setModalVisible(false); // 关闭弹出框
     return true;
@@ -147,12 +143,7 @@ export default () => {
     try{
       const result = await deleteUser(id as number);
       console.log("result",result);
-      if(!result){
-        throw new Error(`delete error id = ${id}`);
-      }
-      else{
-        message.success("删除成功了喵~")
-      }
+      message.success("删除成功了喵~")
     }catch (error){
       message.error("删除失败了喵~")
     }
@@ -165,7 +156,7 @@ export default () => {
       columns={columns}
       actionRef={actionRef}
       cardBordered
-      request={async (params = {}, sort, filter) => {
+      request={async (params = {}) => {
         const projectList = await searchUsers(params);
         return {
           data: projectList
@@ -254,7 +245,7 @@ export default () => {
                 required:true,
                 message: '请输入确认密码哦'
               },
-              { 
+              {
                 message: '密码不少于8位',
                 min: 8,
               },
@@ -268,8 +259,8 @@ export default () => {
             </Button>
           </Form.Item>
         </Form>
-      </Modal> 
-    
+      </Modal>
+
     </>
   );
 };

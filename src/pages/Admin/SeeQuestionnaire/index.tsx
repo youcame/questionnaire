@@ -7,10 +7,15 @@ import { history, useLocation } from 'umi';
 import {AN1, AN2, AN3, AN4,} from "@/constants";
 import {MyChart} from "@/pages/Admin/SeeQuestionnaire/myComponent";
 
+/**
+ * 用于限时问卷的倒计时功能
+ * @param minutes
+ * @param onTimeout
+ * @constructor
+ */
 // @ts-ignore
 const Countdown = ({ minutes, onTimeout }) => {
   const [remainingSeconds, setRemainingSeconds] = useState(minutes * 60);
-
   useEffect(() => {
     const interval = setInterval(() => {
       setRemainingSeconds((prevSeconds) => {
@@ -26,13 +31,11 @@ const Countdown = ({ minutes, onTimeout }) => {
       clearInterval(interval);
     };
   }, [minutes, onTimeout]);
-
   const formatTime = (seconds) => {
     const mins = Math.floor(seconds / 60);
     const secs = seconds % 60;
     return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
   };
-
   return <span>{formatTime(remainingSeconds)}</span>;
 };
 
@@ -84,10 +87,14 @@ const SurveyDisplayPage = () => {
     history.push("questionnaireManage?current=1&pageSize=5");
   };
 
+  // @ts-ignore
   const handleDataStatsClick = (index) => {
     setShowDataStats((prevShowDataStats) => {
       const updatedShowDataStats = [...prevShowDataStats];
-      updatedShowDataStats[index] = true;
+      if(updatedShowDataStats[index] != true) {
+        updatedShowDataStats[index] = true;
+      }
+      else updatedShowDataStats[index] = false;
       return updatedShowDataStats;
     });
   };
@@ -178,17 +185,21 @@ const SurveyDisplayPage = () => {
                     );
                   })}
                 </CheckCard.Group>
-                <Divider type='horizontal' />
+
                 {isAnswerMode && !isDataStatsVisible && ( // 添加按钮的条件渲染
-                  <Button type="primary" onClick={() => handleDataStatsClick(index)}>
+                  <>
+                    <Divider type='horizontal' />
+                    <Button type="primary" onClick={() => handleDataStatsClick(index)}>
                     查看数据统计列表
-                  </Button>
+                    </Button>
+                    <Divider type='horizontal' />
+                  </>
                 )}
-                <Divider type='horizontal' />
                 {isDataStatsVisible && index === 0&&(
                   <Card style={{ marginTop: 16 }} >
-                    {/* 这里编写您的数据统计列表的渲染代码 */}
-                    <Typography.Title level={4}>数据统计列表</Typography.Title>
+                    <Button type="primary" onClick={() => handleDataStatsClick(index)}>
+                      查看数据统计列表
+                    </Button>
                     <Divider type={"horizontal"}/>
                     <ProCard split={"vertical"}>
                       <MyChart src={AN1} title={"饼状图统计"}/>
@@ -200,7 +211,9 @@ const SurveyDisplayPage = () => {
                 {isDataStatsVisible && index === 1&&(
                   <Card style={{ marginTop: 16 }} >
                     {/* 这里编写您的数据统计列表的渲染代码 */}
-                    <Typography.Title level={4}>数据统计列表</Typography.Title>
+                    <Button type="primary" onClick={() => handleDataStatsClick(index)}>
+                      查看数据统计列表
+                    </Button>
                     <Divider type={"horizontal"}/>
                     <ProCard split={"vertical"}>
                       <MyChart src={AN3} title={"饼状图统计"}/>

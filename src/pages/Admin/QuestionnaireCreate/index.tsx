@@ -159,7 +159,6 @@ const Demo = () => {
         }}
         initialValue={[
           {
-            // name: '11',
           },
         ]}
         itemRender={({ listDom, action }, { record, index }) => {
@@ -229,10 +228,6 @@ const Demo = () => {
           导出问卷
         </Button>
         <Divider type='vertical'/>
-        {/* <Button type="primary" shape="round" icon={<UploadOutlined />}>
-          导入问卷
-          <input type="file" style={{ display: 'block' }} accept=".json" onChange={handleImportForm} />
-        </Button> */}
         <Button type="primary" shape="round" icon={<UploadOutlined />} onClick={() => inputRef.current.click()}>
             导入问卷
             <input ref={inputRef} type="file" style={{ display: 'none' }} accept=".json" onChange={handleImportForm} />

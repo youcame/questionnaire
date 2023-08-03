@@ -66,12 +66,7 @@ export default () => {
     try{
       const result = await deleteSurvey(id as number);
       console.log("result",result);
-      if(!result){
-        throw new Error(`delete error id = ${id}`);
-      }
-      else{
-        message.success("删除成功了喵~")
-      }
+      message.success("删除成功了喵~")
     }catch (error){
       message.error("删除失败了喵~")
     }
@@ -171,15 +166,14 @@ export default () => {
         >
           编辑
         </a>,
-        //target="_blank"
-        // <a href={record.url} rel="noopener noreferrer" key="view">
-        <a href={'http://localhost:8000/admin/questionnaireCreate?id='+record.id} rel="noopener noreferrer" key="view">
+        //`http://localhost:8000/admin/questionnaireCreate?id=${record.id}`
+        <a href={`${process.env.NODE_ENV === 'development' ? 'http://localhost:8000/' : 'http://flandre.ltd/'}admin/questionnaireCreate?id=${record.id}`} rel="noopener noreferrer" key="view">
           修改问题
         </a>,
-        <a href={'http://localhost:8000/admin/seeQuestionnaire?id='+record.id} rel="noopener noreferrer" key="view">
+        <a href={`${process.env.NODE_ENV === 'development' ? 'http://localhost:8000/' : 'http://flandre.ltd/'}admin/seeQuestionnaire?id=${record.id}`} rel="noopener noreferrer" key="view">
           预览问卷
         </a>,
-        <a href={'http://localhost:8000/admin/answeredSurvey?surveyId='+record.id} rel="noopener noreferrer" key="view">
+        <a href={`${process.env.NODE_ENV === 'development' ? 'http://localhost:8000/' : 'http://flandre.ltd/'}admin/answeredSurvey?surveyId=${record.id}`} rel="noopener noreferrer" key="view">
           查看回答
         </a>,
         <a
@@ -203,7 +197,6 @@ export default () => {
       actionRef={actionRef}
       cardBordered
       request={async (params = {}, sort, filter) => {
-        console.log("params", params);
         const surveyList = await searchSurveys(params);
         return {
           data: surveyList
@@ -257,16 +250,15 @@ export default () => {
       footer={false}
     >
       <Form
-        form={form}
+
         name="dynamic_form_item"
         {...formItemLayoutWithOutLabel}
         onFinish={onFinish}
         style={{ maxWidth: 600 }}
-        initialValues={{surveyId: "http://localhost:8000/admin/seeQuestionnaire?id="+selectedRowId}}
       >
         <Form.Item name="surveyId" label="问卷链接" wrapperCol={{ span: 0, offset: 0 }} style={{ width: '80%' }}>
-        <a href={`http://localhost:8000/admin/seeQuestionnaire?id=${form.getFieldValue('surveyId')}`}>
-          {`http://localhost:8000/admin/seeQuestionnaire?id=${form.getFieldValue('surveyId')}`}
+        <a href={`${process.env.Node_ENV === 'development' ? 'http://localhost:8000/' : 'http://flandre.ltd/'}admin/seeQuestionnaire?id=${selectedRowId}`}>
+          {`${process.env.NODE_ENV === 'development' ? 'http://localhost:8000/' : 'http://flandre.ltd/'}admin/seeQuestionnaire?id=${selectedRowId}`}
         </a>
         </Form.Item>
         <Form.Item>

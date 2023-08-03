@@ -2,7 +2,6 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Button, Divider, message } from 'antd';
 import {
   ProCard, ProForm,
-  ProFormDateTimeRangePicker,
   ProFormDependency, ProFormGroup, ProFormList, ProFormSelect, ProFormText
 } from '@ant-design/pro-components';
 import { Form } from 'antd';
@@ -94,39 +93,11 @@ const Demo = () => {
 
   return (
     <ProForm onFinish={handleCreateSurvey} form={form}>
-      <ProFormSelect
-        width={'sm'}
-        name="fromProject"
-        label="所属项目"
-        initialValue="0"
-        request={async () => [
-          { value: '0', label: '项目一' },
-          { value: '1', label: '项目二' },
-          { value: '2', label: '项目三' },
-          { value: '3', label: '项目四' },
-          { value: '4', label: '项目五' },
-        ]}
-        placeholder="请选择所属项目"
-        rules={[{ required: true, message: '请选择所选项目名称' }]}
-        />
 
       <ProFormText name="surveyName" label="问卷名称" placeholder={"请输入问卷名称"} width={'sm'} required />
       <ProFormText name="surveyDescription" label="问卷描述" width={900} placeholder={"请输入问卷描述"} required />
-      
-      <ProFormSelect
-        width={'sm'}
-        name="fromType"
-        label="调查类型"
-        initialValue="0"
-        request={async () => [
-          { value: '0', label: '学生' },
-          { value: '1', label: '老师' },
-        ]}
-        placeholder="请选择所属项目"
-        rules={[{ required: true, message: '请选择所选项目名称' }]}
-        /> 
 
-      <ProFormDateTimeRangePicker status="warning" label={"输入问卷开始与结束时间"} required/>
+      {/*<ProFormDateTimeRangePicker status="warning" label={"输入问卷开始与结束时间"} required/>*/}
       <ProFormSelect
 
         width={'sm'}

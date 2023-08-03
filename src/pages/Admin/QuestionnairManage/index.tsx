@@ -1,22 +1,12 @@
 import { useEffect, useRef, useState } from 'react';
 import type { ProColumns, ActionType } from '@ant-design/pro-table';
-import ProTable, { TableDropdown } from '@ant-design/pro-table';
+import ProTable from '@ant-design/pro-table';
 import {deleteSurvey, modifySurvey, searchSurveys} from "@/services/ant-design-pro/api";
-import {Button, Divider, Form, Input, Modal, message} from "antd";
+import {Button, Divider, Form, Modal, message} from "antd";
 import {API} from "@/services/ant-design-pro/typings";
-import {MinusCircleOutlined, PlusOutlined} from "@ant-design/icons";
+import {PlusOutlined} from "@ant-design/icons";
 import { history } from 'umi';
 
-const formItemLayout = {
-  labelCol: {
-    xs: { span: 24 },
-    sm: { span: 4 },
-  },
-  wrapperCol: {
-    xs: { span: 24 },
-    sm: { span: 20 },
-  },
-};
 
 const formItemLayoutWithOutLabel = {
   wrapperCol: {
@@ -93,8 +83,11 @@ export default () => {
     setSelectedRowId(value);
     setOpen(true);
   };
+  /**
+   * 问卷列
+   */
   const columns: ProColumns<API.Survey>[] = [
-    { 
+    {
       dataIndex: '#',
       valueType: 'indexBorder',
       width: 48,
@@ -195,12 +188,13 @@ export default () => {
       >
         生成链接
       </a>
-  
+
       ],
     },
-    
+
   ];
 
+  // @ts-ignore
   return (
     <>
     <ProTable<API.Survey>
@@ -283,102 +277,6 @@ export default () => {
         </Form.Item>
       </Form>
     </Modal>
-  </> 
+  </>
   );
 };
-
-// // <Modal
-// open={open}
-// title="新增一个问题"
-// onOk={handleOk}
-// onCancel={handleCancel}
-// footer={false}
-// >
-// <Form
-//   form={form}
-//   name="dynamic_form_item"
-//   {...formItemLayoutWithOutLabel}
-//   onFinish={onFinish}
-//   style={{ maxWidth: 600 }}
-//   initialValues={{surveyId: selectedRowId}}
-// >
-  
-// <Form.Item name="surveyId" label="问卷Id" wrapperCol={{span: 0,offset: '0'}} style={{ width: '80%'}}>
-//   <Input />
-// </Form.Item>
-
-//   <Form.Item label="题目" name="questionDescription" rules={[{ required: true }]} 
-//   style={{ width: '80%'}} labelCol={{span: 0, offset: 2, sm: 0}} wrapperCol={{span: 0,offset: '0'}}>
-//     <Input />
-//   </Form.Item>
-
-//   <Form.List
-//     name="options"
-//     //initialValue={[{value:""}, {_:""}]}
-//     rules={[
-//       {
-//         validator: async (_, options) => {
-//           if (!options || options.length < 2) {
-//             return Promise.reject(new Error('至少要提供两个选项！！！'));
-//           }
-//         },
-//       },
-//     ]}
-//   >
-//     {(fields, { add, remove }, { errors }) => (
-//       <>
-//         {fields.map((field, index) => (
-
-//           <Form.Item
-//             {...(index === 0 ? formItemLayout : formItemLayoutWithOutLabel)}
-//             label={index === 0 ? '选项' : ''}
-//             required={false}
-//             key={field.key}
-//           >
-//             <Form.Item
-//               {...field}
-//               validateTrigger={['onChange', 'onBlur']}
-//               rules={[
-//                 {
-//                   required: true,
-//                   whitespace: true,
-//                   message: "请输入选项的内容~",
-//                 },
-//               ]}
-//               noStyle
-//             >
-//               <Input placeholder="选项的描述" style={{ width: '60%' }} />
-//             </Form.Item>
-//             {fields.length > 1 ? (
-//               <MinusCircleOutlined
-//                 className="dynamic-delete-button"
-//                 onClick={() => remove(field.name)}
-//               />
-//             ) : null}
-//           </Form.Item>
-//         ))}
-//         <Form.Item>
-//           <Button
-//             type="dashed"
-//             onClick={() => add()}
-//             style={{ width: '60%' }}
-//             icon={<PlusOutlined />}
-//           >
-//             添加一个选项
-//           </Button>
-//           <Form.ErrorList errors={errors} />
-//         </Form.Item>
-//       </>
-//     )}
-//   </Form.List>
-//   <Form.Item>
-//     <Button type="primary" htmlType="button" onClick={handleCancel}>
-//       返回
-//     </Button>
-//     <Divider type='vertical' />
-//     <Button type="primary" htmlType="submit" onClick={onFinish}>
-//       提交
-//     </Button>
-//   </Form.Item>
-// </Form>
-// </Modal>

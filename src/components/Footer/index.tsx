@@ -9,7 +9,7 @@ const Footer: React.FC = () => {
       copyright={`${currentYear} ${defaultMessage}`}
       links={[
         {
-          key: 'Ant Design Pro',
+          key: '你好呀',
           title: 'bilibili',
           href: BILIBILI_LINK,
           blankTarget: true,
@@ -21,7 +21,7 @@ const Footer: React.FC = () => {
           blankTarget: true,
         },
         {
-          key: 'Ant Design',
+          key: '被发现了555',
           title: 'bilibili',
           href: 'https://space.bilibili.com/234120375?spm_id_from=333.1245.0.0',
           blankTarget: true,

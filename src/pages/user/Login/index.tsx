@@ -72,7 +72,7 @@ const Login: React.FC = () => {
         <LoginForm
           logo={<img alt="logo" src={SYSTEM_LOGO} />}
           title="问卷调查系统"
-          subTitle={'很可惜还没有介绍哦~'}
+          subTitle={'很可惜还没有介绍哦~\n账号:admin   密码:12345678'}
           initialValues={{
             autoLogin: true,
           }}

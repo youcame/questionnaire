@@ -1,8 +1,9 @@
-import { useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import type { ProColumns, ActionType } from '@ant-design/pro-table';
 import {getAnswers, } from "@/services/ant-design-pro/api";
 import {API} from "@/services/ant-design-pro/typings";
 import { LightFilter, ProTable } from '@ant-design/pro-components';
+import {Alert, Space} from "antd";
 const columns: ProColumns<API.Answersheet>[] = [
   {
     dataIndex: '#',
@@ -36,7 +37,11 @@ export default () => {
   const actionRef = useRef<ActionType>();
   return (
     <>
-
+      <Space direction="vertical" style={{ width: '100%' }}>
+        <Alert message="问卷的记录与数据统计功能仍在开发中，敬请期待~" type="warning" showIcon closable/>
+      </Space>
+      <br/>
+      <br/>
     <ProTable<API.Answersheet>
       Record
       params={{surveyId: param}}
@@ -54,9 +59,7 @@ export default () => {
         persistenceType: 'localStorage',
       }}
       rowKey="id"
-      search={
-        {filterType: 'query'}
-      }
+      search={false}
       form={{
         // 由于配置了 transform，提交的参与与定义的不同这里需要转化一下
         syncToUrl: (values: API.Answersheet, type) => {

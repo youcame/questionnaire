@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import {Button, Card, Divider, Typography, message} from 'antd';
+import {Button, Card, Divider, Typography, message, Space, Alert} from 'antd';
 import {ProCard, CheckCard, ProForm,} from '@ant-design/pro-components';
 import { getSurveyById, getAnswerById } from '@/services/ant-design-pro/api';
 import { API } from '@/services/ant-design-pro/typings';
 import { history, useLocation } from 'umi';
 import {AN1, AN2, AN3, AN4,} from "@/constants";
 import {MyChart} from "@/pages/Admin/SeeQuestionnaire/myComponent";
+import Marquee from "@/components/Marquee";
+import MyMarquee from "@/components/Marquee";
 
 /**
  * 用于限时问卷的倒计时功能
@@ -122,6 +124,7 @@ const SurveyDisplayPage = () => {
   const isAnswerMode = Boolean(answerId);
   return (
     <div style={{ backgroundColor: isDarkMode ? '#595959' : 'transparent', color: isDarkMode ? 'white' : 'inherit' }}>
+
       <Typography.Title level={2}>问卷名称:{surveyName}</Typography.Title>
       {/* {isAnswerMode&&(
           <Typography.Title level={2}>回答人:{"admin"}</Typography.Title>

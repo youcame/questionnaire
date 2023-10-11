@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import {Divider, Typography, message} from 'antd';
+import {Button, Card, Divider, Typography, message, Space, Alert} from 'antd';
 import {ProCard, CheckCard, ProForm,} from '@ant-design/pro-components';
 import { getSurveyById, getAnswerById } from '@/services/ant-design-pro/api';
 import { API } from '@/services/ant-design-pro/typings';
@@ -36,7 +36,7 @@ const Countdown = ({ minutes, onTimeout }) => {
   };
   return <span>{formatTime(remainingSeconds)}</span>;
 };
-
+//#region
 const SurveyDisplayPage = () => {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
@@ -75,7 +75,6 @@ const SurveyDisplayPage = () => {
     }
   }, [surveyId, answerId]);
   const handleFormSubmit =async (values) => {
-
     console.log("value:",values)
     console.info('表单数据为:', surveyData);
     message.success("提交成功");
@@ -101,6 +100,7 @@ const SurveyDisplayPage = () => {
   if (!surveyData) {
     return <div>查无此问卷~</div>;
   }
+
   //这里从后端获取信息
   const { surveyName, surveyDescription, addQuestion, surveyType, relate } = surveyData;
   const isDarkMode = surveyType === '3';
@@ -118,6 +118,7 @@ const SurveyDisplayPage = () => {
     }
     return null;
   };
+
   const isAnswerMode = Boolean(answerId);
   return (
     <div style={{ backgroundColor: isDarkMode ? '#595959' : 'transparent', color: isDarkMode ? 'white' : 'inherit' }}>
@@ -148,48 +149,50 @@ const SurveyDisplayPage = () => {
         <ProForm.Item name={'answerSheet'}>
           {addQuestion.map((question, index) => {
             const questionData = answerData?.questions[index];
-            const isDataStatsVisible = showDataStats[index]; // 新增的状态
-                return (
-                  <ProCard
-                    key={question.questionName}
-                    headerBordered
-                    title={`第${index + 1}题`}
-                    style={{ marginBottom: 16 }}
-                    bodyStyle={{ backgroundColor: isDarkMode ? '#d9d9d9' : 'transparent', color: isDarkMode ? 'white' : 'inherit' }}
-                    headStyle={{ backgroundColor: isDarkMode ? '#8c8c8c' : 'transparent', color: isDarkMode ? 'white' : 'inherit' }}
-                  >
-                    <Typography.Text strong>
-                      {question.questionDescription}
-                      {question.questionType === 1 ? '(多选)' : question.questionType === 0 ? '(单选)' : ''}
-                      <br />
-                      <br />
-                      <br />
-                    </Typography.Text>
-                    <CheckCard.Group
-                      disabled={isAnswerMode}
-                      value={isAnswerMode ? questionData?.userAnswer : selectedAnswers[index]}
-                      multiple={isAnswerMode || question.questionType === 1}
-                    >
-                      {question.options.map((option, optionIndex) => {
-                        const answerIndex = questionData?.userAnswer.findIndex((index) => index === optionIndex.toString());
-                        const isChecked = isAnswerMode ? answerIndex !== -1 : selectedAnswers[index] === optionIndex.toString();
-                        return (
-                          <CheckCard
-                            style={{ backgroundColor: isDarkMode ? '#f0f0f0' : 'transparent', color: isDarkMode ? 'white' : 'inherit' }}
-                            value={(optionIndex + 1).toString()} // 使用选项索引作为值
-                            key={option.option}
-                            title={String.fromCharCode(65 + optionIndex)} // A, B, C...
-                            description={option.option}
-                            checked={isChecked} // 添加 checked 属性，表示是否选中
-                          />
-                        );
-                      })}
-                    </CheckCard.Group>
-                  </ProCard>
-                );
-              })}
-          </ProForm.Item>
+            return (
+              <ProCard
+                key={question.questionName}
+                headerBordered
+                title={`第${index + 1}题`}
+                style={{ marginBottom: 16 }}
+                bodyStyle={{ backgroundColor: isDarkMode ? '#d9d9d9' : 'transparent', color: isDarkMode ? 'white' : 'inherit' }}
+                headStyle={{ backgroundColor: isDarkMode ? '#8c8c8c' : 'transparent', color: isDarkMode ? 'white' : 'inherit' }}
+              >
+                <Typography.Text strong>
+                  {question.questionDescription}
+                  {question.questionType === 1 ? '(多选)' : question.questionType === 0 ? '(单选)' : ''}
+                  <br />
+                  <br />
+                  <br />
+                </Typography.Text>
+                {/*选项的遍历*/}
+                <CheckCard.Group
+                  disabled={isAnswerMode}
+                  value={isAnswerMode ? questionData?.userAnswer : selectedAnswers[index]}
+                  multiple={isAnswerMode || question.questionType === 1}
+                >
+                  {question.options.map((option, optionIndex) => {
+                    const answerIndex = questionData?.userAnswer.findIndex((index) => index === optionIndex.toString());
+                    const isChecked = isAnswerMode ? answerIndex !== -1 : selectedAnswers[index] === optionIndex.toString();
+                    return (
+                      <CheckCard
+                        style={{ backgroundColor: isDarkMode ? '#f0f0f0' : 'transparent', color: isDarkMode ? 'white' : 'inherit' }}
+                        value={(optionIndex + 1).toString()} // 使用选项索引作为值
+                        key={option.option}
+                        title={String.fromCharCode(65 + optionIndex)} // A, B, C...
+                        description={option.option}
+                        checked={isChecked} // 添加 checked 属性，表示是否选中
+                      />
+                    );
+                  })}
+                </CheckCard.Group>
+                {/*选项遍历结束*/}
+              </ProCard>
+            );
+          })}
+        </ProForm.Item>
       </ProForm>
+
     </div>
   );
 };

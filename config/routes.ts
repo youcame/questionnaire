@@ -21,6 +21,7 @@ export default [
       { path: '/admin/answeredSurvey', component: './Admin/AnsweredSurvey'},
       { path: '/admin/questionnaireCreate', component: './Admin/QuestionnaireCreate'},
       { path: '/admin/seeQuestionnaire', component: './Admin/SeeQuestionnaire'},
+      { path: '/admin/seeAnswer', component: './Admin/SeeAnswer'},
       { component: './404' },
     ],
   },

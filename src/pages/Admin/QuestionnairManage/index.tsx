@@ -167,13 +167,13 @@ export default () => {
           编辑
         </a>,
         //`http://localhost:8000/admin/questionnaireCreate?id=${record.id}`
-        <a href={`${process.env.NODE_ENV === 'development' ? 'http://localhost:8000/' : 'http://flandre.ltd/'}admin/questionnaireCreate?id=${record.id}`} rel="noopener noreferrer" key="view">
+        <a href={`${process.env.NODE_ENV === 'development' ? 'http://localhost:8000/' : 'http://flandre.ltd/'}admin/questionnaireCreate?id=${record.id}`} rel="noopener noreferrer" key="modify">
           修改问题
         </a>,
-        <a href={`${process.env.NODE_ENV === 'development' ? 'http://localhost:8000/' : 'http://flandre.ltd/'}admin/seeQuestionnaire?id=${record.id}`} rel="noopener noreferrer" key="view">
+        <a href={`${process.env.NODE_ENV === 'development' ? 'http://localhost:8000/' : 'http://flandre.ltd/'}admin/seeQuestionnaire?id=${record.id}`} rel="noopener noreferrer" key="viewSurvey">
           预览问卷
         </a>,
-        <a href={`${process.env.NODE_ENV === 'development' ? 'http://localhost:8000/' : 'http://flandre.ltd/'}admin/answeredSurvey?surveyId=${record.id}`} rel="noopener noreferrer" key="view">
+        <a href={`${process.env.NODE_ENV === 'development' ? 'http://localhost:8000/' : 'http://flandre.ltd/'}admin/answeredSurvey?surveyId=${record.id}`} rel="noopener noreferrer" key="viewAnswer">
           查看回答
         </a>,
         <a
@@ -250,7 +250,6 @@ export default () => {
       footer={false}
     >
       <Form
-
         name="dynamic_form_item"
         {...formItemLayoutWithOutLabel}
         onFinish={onFinish}

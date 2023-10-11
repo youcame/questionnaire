@@ -148,9 +148,9 @@ export default () => {
       message.error("删除失败了喵~")
     }
   }
+  // @ts-ignore
   return (
     <>
-
     <ProTable<API.CurrentUser>
       Record
       columns={columns}

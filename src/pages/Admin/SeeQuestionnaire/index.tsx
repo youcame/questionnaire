@@ -69,7 +69,6 @@ const SurveyDisplayPage = () => {
     });
     history.push("questionnaireManage?current=1&pageSize=5");
   };
-
   if (!surveyData) {
     return <div>查无此问卷~</div>;
   }
@@ -92,7 +91,6 @@ const SurveyDisplayPage = () => {
   };
   return (
     <div style={{ backgroundColor: isDarkMode ? '#595959' : 'transparent', color: isDarkMode ? 'white' : 'inherit' }}>
-
       <Typography.Title level={2}>问卷名称:{surveyName}</Typography.Title>
       <Divider type="vertical" />
       <Typography.Title level={4}>
@@ -129,20 +127,19 @@ const SurveyDisplayPage = () => {
                       <br />
                     </Typography.Text>
                     <CheckCard.Group
-
                       multiple={question.questionType === 1}
                     >
-                      {question.options.map((option, optionIndex) => {
-                        return (
-                          <CheckCard
-                            style={{ backgroundColor: isDarkMode ? '#f0f0f0' : 'transparent', color: isDarkMode ? 'white' : 'inherit' }}
-                            value={(optionIndex + 1).toString()} // 使用选项索引作为值
-                            key={option.option}
-                            title={String.fromCharCode(65 + optionIndex)} // A, B, C...
-                            description={option.option}
-                          />
-                        );
-                      })}
+                    {question.options.map((option, optionIndex) => {
+                      return (
+                        <CheckCard
+                          style={{ backgroundColor: isDarkMode ? '#f0f0f0' : 'transparent', color: isDarkMode ? 'white' : 'inherit' }}
+                          value={(optionIndex + 1).toString()} // 使用选项索引作为值
+                          key={option.option}
+                          title={String.fromCharCode(65 + optionIndex)} // A, B, C...
+                          description={option.option}
+                        />
+                      );
+                    })}
                     </CheckCard.Group>
                   </ProCard>
                 );

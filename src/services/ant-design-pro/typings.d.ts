@@ -4,6 +4,22 @@
 import {numberlike} from "moment";
 
 declare namespace API {
+  /**
+   * 一道问题的答案
+   */
+  type AnsQuestions = {
+    id: number;
+    ans: Array<number>;
+  }
+
+  /**
+   * 回答的问题答案
+   */
+  type ReturnAnsQuestions = {
+    id?: number;
+    questions: Array<AnsQuestions>;
+  }
+
   type Project = {
     id?: number;
     projectName?: string;
@@ -106,15 +122,6 @@ declare namespace API {
     gender?: number;
   };
 
-  type ErrorResponse = {
-    /** 业务约定的错误码 */
-    errorCode: string;
-    /** 业务上的错误信息 */
-    errorMessage?: string;
-    /** 业务上的请求是否成功 */
-    success?: boolean;
-  };
-
   type NoticeIconList = {
     data?: NoticeIconItem[];
     /** 列表的内容总数 */
@@ -143,6 +150,7 @@ declare namespace API {
     surveyType: values.surveyType,
     relate: values.relate,
     addQuestion: Array<{
+      questionId: number,
       questionType: number,
       questionName: string,
       questionDescription: string,
@@ -161,14 +169,14 @@ declare namespace API {
     userAccount: string;
     questions: Array<QuestionData>;
   };
-  
+
   type QuestionData = {
     id: number;
     questionDescription: string;
     options: Array<OptionData>;
     userAnswer: Array<string>;
   };
-  
+
   type OptionData = {
     id: number;
     label: string;

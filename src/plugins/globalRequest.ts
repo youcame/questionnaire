@@ -22,7 +22,6 @@ const request = extend({
  * 所有请求拦截器
  */
 request.interceptors.request.use((url, options): any => {
-  console.log(`执行了请求拦截器 url={}`, url);
   return {
     url,
     options: {

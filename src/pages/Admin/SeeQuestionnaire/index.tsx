@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import {Divider, Typography, message} from 'antd';
 import {ProCard, CheckCard, ProForm,} from '@ant-design/pro-components';
-import { getSurveyById, getAnswerById } from '@/services/ant-design-pro/api';
+import { getSurveyById } from '@/services/ant-design-pro/api';
 import { API } from '@/services/ant-design-pro/typings';
 import { history, useLocation } from 'umi';
 
@@ -44,8 +44,6 @@ const SurveyDisplayPage = () => {
   const answerId = searchParams.get('answerId');
   const [surveyData, setSurveyData] = useState<API.addSurveyRequest | null>(null);
   const [selectedAnswers, setSelectedAnswers] = useState([]);
-  const [answerData, setAnswerData] = useState<API.AnswerData | null>(null);
-  const [showDataStats, setShowDataStats] = useState(Array(addQuestion?.length).fill(false)); // 修改的状态
 
   useEffect(() => {
     const fetchSurveyData = async () => {
@@ -56,26 +54,12 @@ const SurveyDisplayPage = () => {
         console.error('获取问卷信息失败:', error);
       }
     };
-
-    const fetchAnswerData = async () => {
-      try {
-        const response = await getAnswerById({ id: answerId });
-        setAnswerData(response);
-        const initialAnswers = response.questions.map((question) => question.userAnswer);
-        setSelectedAnswers(initialAnswers);
-      } catch (error) {
-        console.error('获取答案信息失败:', error);
-      }
-    };
     if (surveyId) {
       fetchSurveyData();
     }
-    if (answerId) {
-      fetchAnswerData();
-    }
   }, [surveyId, answerId]);
+  //todo: 提交问卷的逻辑
   const handleFormSubmit =async (values) => {
-
     console.log("value:",values)
     console.info('表单数据为:', surveyData);
     message.success("提交成功");
@@ -84,18 +68,6 @@ const SurveyDisplayPage = () => {
       console.info(`题号 ${index + 1} 的答案为:`, answer);
     });
     history.push("questionnaireManage?current=1&pageSize=5");
-  };
-
-  // @ts-ignore
-  const handleDataStatsClick = (index) => {
-    setShowDataStats((prevShowDataStats) => {
-      const updatedShowDataStats = [...prevShowDataStats];
-      if(updatedShowDataStats[index] != true) {
-        updatedShowDataStats[index] = true;
-      }
-      else updatedShowDataStats[index] = false;
-      return updatedShowDataStats;
-    });
   };
 
   if (!surveyData) {
@@ -118,15 +90,10 @@ const SurveyDisplayPage = () => {
     }
     return null;
   };
-  const isAnswerMode = Boolean(answerId);
   return (
     <div style={{ backgroundColor: isDarkMode ? '#595959' : 'transparent', color: isDarkMode ? 'white' : 'inherit' }}>
 
       <Typography.Title level={2}>问卷名称:{surveyName}</Typography.Title>
-      {/* {isAnswerMode&&(
-          <Typography.Title level={2}>回答人:{"admin"}</Typography.Title>
-        )
-      } */}
       <Divider type="vertical" />
       <Typography.Title level={4}>
         问卷描述: {surveyDescription}
@@ -136,19 +103,15 @@ const SurveyDisplayPage = () => {
         <Divider type="vertical" />
         {`${surveyType === '1' ? `${relate}分钟` : surveyType === '2' ? `${relate}次` : surveyType === '3' ? '暗黑风格' : ''}`}
         <Divider type="vertical" />
-        {!isAnswerMode && surveyType === '1' && (
           <>
             剩余时间: {renderCountdown()}
             <Divider type="vertical" />
           </>
-        )}
       </Typography.Title>
       <Divider type="vertical" />
       <ProForm onFinish={handleFormSubmit} initialValues={surveyData?.addQuestion}>
         <ProForm.Item name={'answerSheet'}>
           {addQuestion.map((question, index) => {
-            const questionData = answerData?.questions[index];
-            const isDataStatsVisible = showDataStats[index]; // 新增的状态
                 return (
                   <ProCard
                     key={question.questionName}
@@ -166,13 +129,10 @@ const SurveyDisplayPage = () => {
                       <br />
                     </Typography.Text>
                     <CheckCard.Group
-                      disabled={isAnswerMode}
-                      value={isAnswerMode ? questionData?.userAnswer : selectedAnswers[index]}
-                      multiple={isAnswerMode || question.questionType === 1}
+
+                      multiple={question.questionType === 1}
                     >
                       {question.options.map((option, optionIndex) => {
-                        const answerIndex = questionData?.userAnswer.findIndex((index) => index === optionIndex.toString());
-                        const isChecked = isAnswerMode ? answerIndex !== -1 : selectedAnswers[index] === optionIndex.toString();
                         return (
                           <CheckCard
                             style={{ backgroundColor: isDarkMode ? '#f0f0f0' : 'transparent', color: isDarkMode ? 'white' : 'inherit' }}
@@ -180,7 +140,6 @@ const SurveyDisplayPage = () => {
                             key={option.option}
                             title={String.fromCharCode(65 + optionIndex)} // A, B, C...
                             description={option.option}
-                            checked={isChecked} // 添加 checked 属性，表示是否选中
                           />
                         );
                       })}

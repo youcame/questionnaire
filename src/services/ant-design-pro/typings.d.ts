@@ -19,6 +19,18 @@ declare namespace API {
     id?: number;
     questions: Array<AnsQuestions>;
   }
+  /**
+   * 记录用户的答案
+   */
+  type recordUserAnswer = {
+    id: number,
+    surveyId: number,
+    userAccount: string,
+    questions: Array<{
+      id:number,
+      ans:number
+    }>
+  };
 
   type Project = {
     id?: number;
@@ -145,10 +157,10 @@ declare namespace API {
   };
 
   type addSurveyRequest = {
-    surveyName: values.surveyName,
-    surveyDescription: values.surveyDescription,
-    surveyType: values.surveyType,
-    relate: values.relate,
+    surveyName: string,
+    surveyDescription: string,
+    surveyType: number,
+    relate: number,
     addQuestion: Array<{
       questionId: number,
       questionType: number,

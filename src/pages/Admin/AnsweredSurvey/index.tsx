@@ -37,11 +37,11 @@ export default () => {
   const actionRef = useRef<ActionType>();
   return (
     <>
-      <Space direction="vertical" style={{ width: '100%' }}>
-        <Alert message="问卷的记录与数据统计功能仍在开发中，敬请期待~" type="warning" showIcon closable/>
-      </Space>
-      <br/>
-      <br/>
+      {/*<Space direction="vertical" style={{ width: '100%' }}>*/}
+      {/*  <Alert message="问卷的记录与数据统计功能仍在开发中，敬请期待~" type="warning" showIcon closable/>*/}
+      {/*</Space>*/}
+      {/*<br/>*/}
+      {/*<br/>*/}
     <ProTable<API.Answersheet>
       Record
       params={{surveyId: param}}

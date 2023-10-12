@@ -1,7 +1,7 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {Divider, Typography, message} from 'antd';
 import {ProCard, CheckCard, ProForm,} from '@ant-design/pro-components';
-import { getSurveyById } from '@/services/ant-design-pro/api';
+import {currentUser, getSurveyById, recordAnswer} from '@/services/ant-design-pro/api';
 import {API, ReturnAnsQuestions} from '@/services/ant-design-pro/typings';
 import { history, useLocation } from 'umi';
 
@@ -81,8 +81,12 @@ const SurveyDisplayPage = () => {
 
   //todo: 提交问卷的逻辑
   const handleFormSubmit = async (values) => {
+    const curUser = await currentUser();
     // 转换原始数据为 ReturnAnsQuestions 格式
     const returnAnsQuestions = {
+      id: curUser.id,
+      surveyId: Number(surveyId),
+      userAccount: curUser.userAccount,
       questions: []
     };
     console.log("转换前的数据:", values);
@@ -95,6 +99,8 @@ const SurveyDisplayPage = () => {
     // 输出转换后的数据
     console.log("转换后的数据:", returnAnsQuestions);
     // 在这里你可以将 returnAnsQuestions 发送到后端或进行其他处理
+    const res = await recordAnswer(returnAnsQuestions);
+    console.log("收到的结果为:",res);
   };
   return (
     <div style={{ backgroundColor: isDarkMode ? '#595959' : 'transparent', color: isDarkMode ? 'white' : 'inherit' }}>

@@ -1,7 +1,7 @@
 // @ts-ignore
 /* eslint-disable */
 import request from '@/plugins/globalRequest';
-import { API } from '@/services/ant-design-pro/typings';
+import {addSurveyRequest, API, recordUserAnswer} from '@/services/ant-design-pro/typings';
 /** 获取当前的用户 GET /api/user/current */
 export async function currentUser(options?: { [key: string]: any }) {
   return request<API.CurrentUser>('/api/user/current', {
@@ -244,3 +244,17 @@ export async function getAnswers(options?: { [key: string]: any }) {
     ...(options || {}),
   });
 }
+
+/** 记录用户答案接口 POST /api/answer/recordAnswer */
+export async function recordAnswer(body: API.recordUserAnswer, options?: { [key: string]: any }) {
+  return request<boolean>('/api/answer/recordAnswer', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    data: body,
+    params: options,
+    ...(options || {}),
+  });
+}
+

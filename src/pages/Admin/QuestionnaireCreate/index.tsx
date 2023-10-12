@@ -8,18 +8,26 @@ import { Form } from 'antd';
 import { history, useLocation } from 'umi';
 import { DownloadOutlined, UploadOutlined } from '@ant-design/icons';
 import { API } from '@/services/ant-design-pro/typings';
-import { createSurvey, getSurveyById } from '@/services/ant-design-pro/api';
+import {createSurvey, getSurveyById, searchProjects} from '@/services/ant-design-pro/api';
 
 const Demo = () => {
   const [id, setId] = useState<string | null>(null);
   const [form] = Form.useForm(); // 创建表单实例
   const [exportedFormData, setExportedFormData] = useState<any>(null);
+  const [projects, setProjects] = useState([]);
   const inputRef = useRef(null);
 
   function redirectToQuestionnaireManage() {
     history.push('questionnaireManage?current=1&pageSize=5');
   }
+  useEffect(async ()=>{
+    const res =await searchProjects();
+    await setProjects(res);
+  },[])
 
+  useEffect(() => {
+    console.log(projects);
+  }, [projects]);
   // eslint-disable-next-line @typescript-eslint/no-shadow
   const getSurveyData = async (id: string) => {
     try {
@@ -100,19 +108,18 @@ const Demo = () => {
       {/*<ProFormDateTimeRangePicker status="warning" label={"输入问卷开始与结束时间"} required/>*/}
       <ProFormSelect
         width={'sm'}
-        name="surveyType"
+        name="projectId"
+        params={projects}
         label="所属项目"
-        initialValue="0"
-        request={async () => [
-          { value: '0', label: '普通问卷' },
-          { value: '1', label: '限时问卷' },
-          { value: '2', label: '限次问卷' },
-          { value: '3', label: '自选风格' },
-          { value: '4', label: '面向群众' },
-        ]}
+        initialValue={1} // 如果需要初始值，请设置
+        options={projects.map((project) => ({
+          label: project.projectName,
+          value: project.id,
+        }))}
         placeholder="请选择问卷类型"
         rules={[{ required: true, message: '请选择问卷类型' }]}
       />
+
       <ProFormSelect
 
         width={'sm'}

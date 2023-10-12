@@ -158,6 +158,7 @@ declare namespace API {
 
   type addSurveyRequest = {
     surveyName: string,
+    belongProject: number,
     surveyDescription: string,
     surveyType: number,
     relate: number,

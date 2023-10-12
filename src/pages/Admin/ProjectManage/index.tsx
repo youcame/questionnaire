@@ -1,10 +1,11 @@
 import { useRef, useState } from 'react';
 import type { ProColumns, ActionType } from '@ant-design/pro-table';
 import ProTable, { TableDropdown } from '@ant-design/pro-table';
-import {createProject, deleteProject, deleteSurvey, modifyProject, modifySurvey, modifyUser, searchProjects, searchSurveys} from "@/services/ant-design-pro/api";
-import {Button, Form, Image, Input, Modal, message} from "antd";
+import {createProject, deleteProject, modifyProject, searchProjects} from "@/services/ant-design-pro/api";
+import {Button, Form, Input, Modal, message} from "antd";
 import type {API} from "@/services/ant-design-pro/typings";
 import {PlusOutlined} from "@ant-design/icons";
+import {history} from "umi";
 const columns: ProColumns<API.Project>[] = [
   {
     dataIndex: '#',
@@ -60,6 +61,12 @@ const columns: ProColumns<API.Project>[] = [
       >
         编辑
       </a>,
+      <a
+        key="seeSurvey"
+        onClick={() => history.push(`/admin/questionnaireManage?current=1&pageSize=5&projectId=${record.id}`)}
+      >
+        查看所有问卷
+      </a>,
       // <a href={record.url} target="_blank" rel="noopener noreferrer" key="view">
       //   查看
       // </a>,
@@ -83,7 +90,7 @@ export default () => {
     }catch(error){
       message.error("提交失败了！")
     }
-    
+
     setModalVisible(false); // 关闭弹出框
     return true;
   };
@@ -217,8 +224,8 @@ export default () => {
             </Button>
           </Form.Item>
         </Form>
-      </Modal> 
-    
+      </Modal>
+
     </>
   );
 };

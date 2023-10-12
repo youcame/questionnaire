@@ -99,6 +99,21 @@ const Demo = () => {
 
       {/*<ProFormDateTimeRangePicker status="warning" label={"输入问卷开始与结束时间"} required/>*/}
       <ProFormSelect
+        width={'sm'}
+        name="surveyType"
+        label="所属项目"
+        initialValue="0"
+        request={async () => [
+          { value: '0', label: '普通问卷' },
+          { value: '1', label: '限时问卷' },
+          { value: '2', label: '限次问卷' },
+          { value: '3', label: '自选风格' },
+          { value: '4', label: '面向群众' },
+        ]}
+        placeholder="请选择问卷类型"
+        rules={[{ required: true, message: '请选择问卷类型' }]}
+      />
+      <ProFormSelect
 
         width={'sm'}
         name="surveyType"

@@ -99,8 +99,14 @@ const SurveyDisplayPage = () => {
     // 输出转换后的数据
     console.log("转换后的数据:", returnAnsQuestions);
     // 在这里你可以将 returnAnsQuestions 发送到后端或进行其他处理
-    const res = await recordAnswer(returnAnsQuestions);
-    console.log("收到的结果为:",res);
+    try {
+      const res = await recordAnswer(returnAnsQuestions);
+      console.log("res is:",res);
+      if(res!=null)message.success("保存成功");
+      //await history.goBack();
+    }catch (error){
+      //message.error(error);
+    }
   };
   return (
     <div style={{ backgroundColor: isDarkMode ? '#595959' : 'transparent', color: isDarkMode ? 'white' : 'inherit' }}>
@@ -125,7 +131,7 @@ const SurveyDisplayPage = () => {
           {addQuestion.map((question, index) => {
                 return (
                   <ProCard
-                    key={question.questionName}
+                    key={question.questionName+`${index}`}
                     headerBordered
                     title={`第${index + 1}题`}
                     style={{ marginBottom: 16 }}
@@ -148,7 +154,7 @@ const SurveyDisplayPage = () => {
                           <CheckCard
                             style={{ backgroundColor: isDarkMode ? '#f0f0f0' : 'transparent', color: isDarkMode ? 'white' : 'inherit' }}
                             value={(optionIndex + 1).toString()} // 使用选项索引作为值
-                            key={option.option}
+                            key={option.option+`${optionIndex}`}
                             title={String.fromCharCode(65 + optionIndex)} // A, B, C...
                             description={option.option}
                           />

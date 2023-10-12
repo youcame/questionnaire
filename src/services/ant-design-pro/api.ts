@@ -236,7 +236,7 @@ export async function getAnswerById(options?: { [key: string]: any }) {
   });
 }
 
-/** 获取问卷数据 GET /api/answer/getAnswers */
+/** 获取问卷回答的数据 GET /api/answer/getAnswers */
 export async function getAnswers(options?: { [key: string]: any }) {
   return request<API.Answersheet>('/api/answer/getAnswers', {
     method: 'GET',

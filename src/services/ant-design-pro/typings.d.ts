@@ -167,6 +167,7 @@ declare namespace API {
       questionType: number,
       questionName: string,
       questionDescription: string,
+      statistics?: string | null,
       options: Array<{
         destination: number,
         option: string,
@@ -174,7 +175,9 @@ declare namespace API {
     }
     >
   };
-
+  /**
+   * 某个用户的答案信息
+   */
   type AnswerData = {
     id: number;
     surveyName: string;
@@ -186,6 +189,7 @@ declare namespace API {
   type QuestionData = {
     id: number;
     questionDescription: string;
+    statistics: string;
     options: Array<OptionData>;
     userAnswer: Array<string>;
   };

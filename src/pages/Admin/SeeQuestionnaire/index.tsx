@@ -62,9 +62,9 @@ const SurveyDisplayPage = () => {
   }
   //这里从后端获取信息
   const { surveyName, surveyDescription, addQuestion, surveyType, relate } = surveyData;
-  const isDarkMode = surveyType === '3';
+  const isDarkMode = surveyType == 3;
   const renderCountdown = () => {
-    if (surveyType === '1') {
+    if (surveyType == 1) {
       return (
         <Countdown
           minutes={parseInt(relate)}
@@ -75,7 +75,7 @@ const SurveyDisplayPage = () => {
         />
       );
     }
-    return null;
+    return "无时间限制";
   };
   //const initAns: ReturnAnsQuestions = useRef([]);
 
@@ -116,9 +116,9 @@ const SurveyDisplayPage = () => {
         问卷描述: {surveyDescription}
         <Divider type="vertical" />
         问卷类型:{' '}
-        {`${surveyType === '0' ? '普通问卷' : surveyType === '1' ? '限时问卷' : surveyType === '2' ? '限次问卷' : surveyType === '3' ? '选择风格' : '4' ? '面向群众': ''}`}
+        {`${surveyType == 0 ? '普通问卷' : surveyType == 1 ? '限时问卷' : surveyType == 2 ? '限次问卷' : surveyType == 3 ? '选择风格' : surveyType == 4 ? '面向群众': ''}`}
         <Divider type="vertical" />
-        {`${surveyType === '1' ? `${relate}分钟` : surveyType === '2' ? `${relate}次` : surveyType === '3' ? '暗黑风格' : ''}`}
+        {`${surveyType == 1 ? `${relate}分钟` : surveyType == 2 ? `${relate}次` : surveyType == 3 ? '暗黑风格' : ''}`}
         <Divider type="vertical" />
           <>
             剩余时间: {renderCountdown()}

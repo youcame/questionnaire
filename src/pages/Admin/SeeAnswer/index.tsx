@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import {useEffect, useState} from 'react';
 import {Divider, Typography} from 'antd';
 import {ProCard, CheckCard, ProForm,} from '@ant-design/pro-components';
 import {getSurveyById, getAnswerById} from '@/services/ant-design-pro/api';
@@ -13,13 +13,12 @@ const SurveyDisplayPage = () => {
   const surveyId = searchParams.get('id');
   const answerId = searchParams.get('answerId');
   const [surveyData, setSurveyData] = useState<API.addSurveyRequest | null>(null);
-  const [setSelectedAnswers] = useState([]);
   const [answerData, setAnswerData] = useState<API.AnswerData | null>(null);
-
   useEffect(() => {
     const fetchSurveyData = async () => {
       try {
         const response = await getSurveyById({id: surveyId});
+        console.log("survey is:", response);
         setSurveyData(response);
       } catch (error) {
         console.error('获取问卷信息失败:', error);
@@ -30,8 +29,8 @@ const SurveyDisplayPage = () => {
       try {
         const response = await getAnswerById({id: answerId});
         setAnswerData(response);
-        const initialAnswers = response.questions.map((question) => question.userAnswer);
-        setSelectedAnswers(initialAnswers);
+        // const initialAnswers = response.questions.map((question) => question.userAnswer);
+        // setSelectedAnswers(initialAnswers);
       } catch (error) {
         console.error('获取答案信息失败:', error);
       }
@@ -50,7 +49,7 @@ const SurveyDisplayPage = () => {
 
   //这里从后端获取信息
   const {surveyName, surveyDescription, addQuestion, surveyType, relate} = surveyData;
-  const isDarkMode = surveyType === '3';
+  const isDarkMode = surveyType === 3;
 
   return (
     <div style={{backgroundColor: isDarkMode ? '#595959' : 'transparent', color: isDarkMode ? 'white' : 'inherit'}}>
@@ -65,18 +64,20 @@ const SurveyDisplayPage = () => {
         问卷描述: {surveyDescription}
         <Divider type="vertical"/>
         问卷类型:{' '}
-        {`${surveyType === '0' ? '普通问卷' : surveyType === '1' ? '限时问卷' : surveyType === '2' ? '限次问卷' : surveyType === '3' ? '选择风格' : '4' ? '面向群众' : ''}`}
+        {`${surveyType === 0 ? '普通问卷' : surveyType === 1 ? '限时问卷' : surveyType === 2 ? '限次问卷' : surveyType === 3 ? '选择风格' : '4' ? '面向群众' : ''}`}
         <Divider type="vertical"/>
-        {`${surveyType === '1' ? `${relate}分钟` : surveyType === '2' ? `${relate}次` : surveyType === '3' ? '暗黑风格' : ''}`}
+        {`${surveyType === 1 ? `${relate}分钟` : surveyType === 2 ? `${relate}次` : surveyType === 3 ? '暗黑风格' : ''}`}
         <Divider type="vertical"/>
 
       </Typography.Title>
       <Divider type="vertical"/>
-      <ProForm initialValues={surveyData?.addQuestion}>
+      <ProForm>
         <ProForm.Item name={'answerSheet'}>
           {addQuestion.map((question, index) => {
             const questionData = answerData?.questions[index];
+            console.log("questionData:",questionData);
             return (
+              <>
               <ProCard
                 key={question.questionName}
                 headerBordered
@@ -107,7 +108,9 @@ const SurveyDisplayPage = () => {
                   {question.options.map((option, optionIndex) => {
                     const answerIndex = questionData?.userAnswer.findIndex((index) => index === optionIndex.toString());
                     const isChecked = answerIndex !== -1;
+                    console.log("statistics:",questionData?.statistics);
                     return (
+                      <>
                       <CheckCard
                         style={{
                           backgroundColor: isDarkMode ? '#f0f0f0' : 'transparent',
@@ -119,10 +122,16 @@ const SurveyDisplayPage = () => {
                         description={option.option}
                         checked={isChecked} // 添加 checked 属性，表示是否选中
                       />
+                      </>
                     );
                   })}
                 </CheckCard.Group>
+                <br/>
+                <Typography.Text strong style={{ whiteSpace: "pre-line" }}>
+                  {" " + questionData?.statistics}
+                </Typography.Text>
               </ProCard>
+            </>
             );
           })}
         </ProForm.Item>

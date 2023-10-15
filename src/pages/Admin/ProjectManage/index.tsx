@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react';
 import type { ProColumns, ActionType } from '@ant-design/pro-table';
-import ProTable, { TableDropdown } from '@ant-design/pro-table';
+import ProTable from '@ant-design/pro-table';
 import {createProject, deleteProject, modifyProject, searchProjects} from "@/services/ant-design-pro/api";
 import {Button, Form, Input, Modal, message} from "antd";
 import type {API} from "@/services/ant-design-pro/typings";
@@ -134,7 +134,6 @@ export default () => {
   }
   return (
     <>
-
     <ProTable<API.Survey>
       Record
       columns={columns}

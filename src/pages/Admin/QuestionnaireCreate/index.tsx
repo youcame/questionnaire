@@ -5,7 +5,7 @@ import {
   ProFormDependency, ProFormGroup, ProFormList, ProFormSelect, ProFormText
 } from '@ant-design/pro-components';
 import { Form } from 'antd';
-import { history, useLocation } from 'umi';
+import { history } from 'umi';
 import { DownloadOutlined, UploadOutlined } from '@ant-design/icons';
 import { API } from '@/services/ant-design-pro/typings';
 import {createSurvey, getSurveyById, searchProjects} from '@/services/ant-design-pro/api';
@@ -13,7 +13,6 @@ import {createSurvey, getSurveyById, searchProjects} from '@/services/ant-design
 const Demo = () => {
   const [id, setId] = useState<string | null>(null);
   const [form] = Form.useForm(); // 创建表单实例
-  const [exportedFormData, setExportedFormData] = useState<any>(null);
   const [projects, setProjects] = useState([]);
   const inputRef = useRef(null);
 
@@ -22,18 +21,16 @@ const Demo = () => {
   }
   useEffect(async ()=>{
     const res =await searchProjects();
-    await setProjects(res);
+    setProjects(res);
   },[])
 
-  useEffect(() => {
-    console.log(projects);
-  }, [projects]);
   // eslint-disable-next-line @typescript-eslint/no-shadow
   const getSurveyData = async (id: string) => {
     try {
       const response = await getSurveyById({ id });
-      const { surveyName, surveyDescription, surveyType, relate, addQuestion } = response;
+      const { surveyName, surveyDescription, surveyType, relate, addQuestion, projectId } = response;
       form.setFieldsValue({
+        projectId,
         surveyName,
         surveyDescription,
         surveyType,
@@ -68,7 +65,6 @@ const Demo = () => {
 
   const handleExportForm = () => {
     const formData = form.getFieldsValue();
-    setExportedFormData(formData);
 
     const jsonData = JSON.stringify(formData);
     const blob = new Blob([jsonData], { type: 'application/json' });
@@ -78,7 +74,6 @@ const Demo = () => {
     link.href = url;
     link.download = 'questionnaire.json';
     link.click();
-
     URL.revokeObjectURL(url);
   };
 
@@ -113,8 +108,8 @@ const Demo = () => {
         label="所属项目"
         initialValue={1} // 如果需要初始值，请设置
         options={projects.map((project) => ({
-          label: project.projectName,
-          value: project.id,
+          label: project?.projectName,
+          value: project?.id,
         }))}
         placeholder="请选择问卷类型"
         rules={[{ required: true, message: '请选择问卷类型' }]}

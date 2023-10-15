@@ -1,7 +1,7 @@
 // @ts-ignore
 /* eslint-disable */
 import request from '@/plugins/globalRequest';
-import {addSurveyRequest, API, recordUserAnswer} from '@/services/ant-design-pro/typings';
+import { API} from '@/services/ant-design-pro/typings';
 /** 获取当前的用户 GET /api/user/current */
 export async function currentUser(options?: { [key: string]: any }) {
   return request<API.CurrentUser>('/api/user/current', {

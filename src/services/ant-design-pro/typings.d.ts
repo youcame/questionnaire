@@ -33,7 +33,7 @@ declare namespace API {
   };
 
   type Project = {
-    id?: number;
+    id?: number | null;
     projectName?: string;
     projectDescription?: string;
     userId?: number;
@@ -158,7 +158,7 @@ declare namespace API {
 
   type addSurveyRequest = {
     surveyName: string,
-    belongProject: number,
+    projectId: number,
     surveyDescription: string,
     surveyType: number,
     relate: number,

@@ -65,7 +65,6 @@ export default () => {
     console.log("key", id);
     try{
       const result = await deleteSurvey(id as number);
-      console.log("result",result);
       message.success("删除成功了喵~")
     }catch (error){
       message.error("删除失败了喵~")

@@ -35,7 +35,6 @@ const Register: React.FC = () => {
     try {
       // 注册
       const id = await register(values);
-      console.log("id", id);
       if (id >= 0) {
         const defaultRegisterSuccessMessage = '注册成功！';
         message.success(defaultRegisterSuccessMessage);

@@ -18,7 +18,6 @@ const SurveyDisplayPage = () => {
     const fetchSurveyData = async () => {
       try {
         const response = await getSurveyById({id: surveyId});
-        console.log("survey is:", response);
         setSurveyData(response);
       } catch (error) {
         console.error('获取问卷信息失败:', error);
@@ -75,7 +74,6 @@ const SurveyDisplayPage = () => {
         <ProForm.Item name={'answerSheet'}>
           {addQuestion.map((question, index) => {
             const questionData = answerData?.questions[index];
-            console.log("questionData:",questionData);
             return (
               <>
               <ProCard
@@ -108,7 +106,6 @@ const SurveyDisplayPage = () => {
                   {question.options.map((option, optionIndex) => {
                     const answerIndex = questionData?.userAnswer.findIndex((index) => index === optionIndex.toString());
                     const isChecked = answerIndex !== -1;
-                    console.log("statistics:",questionData?.statistics);
                     return (
                       <>
                       <CheckCard

@@ -1,9 +1,8 @@
-import React, { useRef, useState } from 'react';
+import { useRef } from 'react';
 import type { ProColumns, ActionType } from '@ant-design/pro-table';
 import {getAnswers, } from "@/services/ant-design-pro/api";
 import {API} from "@/services/ant-design-pro/typings";
-import { LightFilter, ProTable } from '@ant-design/pro-components';
-import {Alert, Space} from "antd";
+import { ProTable } from '@ant-design/pro-components';
 const columns: ProColumns<API.Answersheet>[] = [
   {
     dataIndex: '#',

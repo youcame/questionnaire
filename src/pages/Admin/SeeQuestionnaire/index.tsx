@@ -1,8 +1,8 @@
-import React, {useEffect, useRef, useState} from 'react';
+import {useEffect, useState} from 'react';
 import {Divider, Typography, message} from 'antd';
 import {ProCard, CheckCard, ProForm,} from '@ant-design/pro-components';
 import {currentUser, getSurveyById, recordAnswer} from '@/services/ant-design-pro/api';
-import {API, ReturnAnsQuestions} from '@/services/ant-design-pro/typings';
+import {API} from '@/services/ant-design-pro/typings';
 import { history, useLocation } from 'umi';
 
 /**
@@ -67,7 +67,7 @@ const SurveyDisplayPage = () => {
     if (surveyType == 1) {
       return (
         <Countdown
-          minutes={parseInt(relate)}
+          minutes={parseInt(String(relate))}
           onTimeout={() => {
             console.log('倒计时结束');
             history.push('/admin/questionnaireManage?current=1&pageSize=5');
@@ -80,7 +80,7 @@ const SurveyDisplayPage = () => {
   //const initAns: ReturnAnsQuestions = useRef([]);
 
   //todo: 提交问卷的逻辑
-  const handleFormSubmit = async (values) => {
+  const handleFormSubmit = async (values: any) => {
     const curUser = await currentUser();
     // 转换原始数据为 ReturnAnsQuestions 格式
     const returnAnsQuestions = {
@@ -89,19 +89,15 @@ const SurveyDisplayPage = () => {
       userAccount: curUser.userAccount,
       questions: []
     };
-    console.log("转换前的数据:", values);
     for (const questionId in values) {
       if (values.hasOwnProperty(questionId)) {
         const ans = Array.isArray(values[questionId]) ? values[questionId].map(Number) : [Number(values[questionId])];
+        // @ts-ignore
         returnAnsQuestions.questions.push({ id: Number(questionId), ans });
       }
     }
-    // 输出转换后的数据
-    console.log("转换后的数据:", returnAnsQuestions);
-    // 在这里你可以将 returnAnsQuestions 发送到后端或进行其他处理
     try {
       const res = await recordAnswer(returnAnsQuestions);
-      console.log("res is:",res);
       if(res!=null)message.success("保存成功");
       //await history.goBack();
     }catch (error){

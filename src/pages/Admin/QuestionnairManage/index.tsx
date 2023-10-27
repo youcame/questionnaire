@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import type { ProColumns, ActionType } from '@ant-design/pro-table';
 import ProTable from '@ant-design/pro-table';
-import {deleteSurvey, modifySurvey, searchSurveys} from "@/services/ant-design-pro/api";
+import {currentUser, deleteSurvey, modifySurvey, searchSurveys} from "@/services/ant-design-pro/api";
 import {Button, Divider, Form, Modal, message} from "antd";
 import {API} from "@/services/ant-design-pro/typings";
 import {PlusOutlined} from "@ant-design/icons";
@@ -24,11 +24,22 @@ export default () => {
   const [selectedRowId, setSelectedRowId] = useState(1);
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
-
+  const [user,setUser] = useState('');
   function redirectToQuestionnaireCreate() {
     history.push('/admin/questionnaireCreate?id=');
   }
-
+  useEffect(()=>{
+    const fetchData = async () => {
+      try {
+        const currentUserData = await currentUser();
+        setUser(currentUserData);
+      } catch (error) {
+        // 处理错误
+        console.error(error);
+      }
+    };
+    fetchData();
+  },[])
   const handleOk = () => {
     setLoading(true);
     setTimeout(() => {
@@ -156,7 +167,7 @@ export default () => {
     {
       title: '操作',
       valueType: 'option',
-      render: (text, record, _, action) => [
+      render: (text, record, _, action) => user?.userRole===1?[
         <a
           key="editable"
           onClick={() => {
@@ -166,13 +177,13 @@ export default () => {
           编辑
         </a>,
         //`http://localhost:8000/admin/questionnaireCreate?id=${record.id}`
-        <a href={`${process.env.NODE_ENV === 'development' ? 'http://localhost:8000/' : 'http://flandre.ltd/'}admin/questionnaireCreate?id=${record.id}`} rel="noopener noreferrer" key="modify">
+        <a href={`${process.env.NODE_ENV === 'development' ? 'http://localhost:8000/' : 'http://chinosama.cn/'}admin/questionnaireCreate?id=${record.id}`} rel="noopener noreferrer" key="modify">
           修改问题
         </a>,
-        <a href={`${process.env.NODE_ENV === 'development' ? 'http://localhost:8000/' : 'http://flandre.ltd/'}admin/seeQuestionnaire?id=${record.id}`} rel="noopener noreferrer" key="viewSurvey">
+        <a href={`${process.env.NODE_ENV === 'development' ? 'http://localhost:8000/' : 'http://chinosama.cn/'}admin/seeQuestionnaire?id=${record.id}`} rel="noopener noreferrer" key="viewSurvey">
           预览问卷
         </a>,
-        <a href={`${process.env.NODE_ENV === 'development' ? 'http://localhost:8000/' : 'http://flandre.ltd/'}admin/answeredSurvey?surveyId=${record.id}`} rel="noopener noreferrer" key="viewAnswer">
+        <a href={`${process.env.NODE_ENV === 'development' ? 'http://localhost:8000/' : 'http://chinosama.cn/'}admin/answeredSurvey?surveyId=${record.id}`} rel="noopener noreferrer" key="viewAnswer">
           查看回答
         </a>,
         <a
@@ -182,7 +193,15 @@ export default () => {
         生成链接
       </a>
 
+      ]:[
+        <a href={`${process.env.NODE_ENV === 'development' ? 'http://localhost:8000/' : 'http://chinosama.cn/'}admin/seeQuestionnaire?id=${record.id}`} rel="noopener noreferrer" key="viewSurvey">
+          填写问卷
+        </a>,
+        <a href={`${process.env.NODE_ENV === 'development' ? 'http://localhost:8000/' : 'http://chinosama.cn/'}admin/answeredSurvey?surveyId=${record.id}`} rel="noopener noreferrer" key="viewAnswer">
+          查看回答
+        </a>,
       ],
+
     },
 
   ];
@@ -255,8 +274,8 @@ export default () => {
         style={{ maxWidth: 600 }}
       >
         <Form.Item name="surveyId" label="问卷链接" wrapperCol={{ span: 0, offset: 0 }} style={{ width: '80%' }}>
-        <a href={`${process.env.Node_ENV === 'development' ? 'http://localhost:8000/' : 'http://flandre.ltd/'}admin/seeQuestionnaire?id=${selectedRowId}`}>
-          {`${process.env.NODE_ENV === 'development' ? 'http://localhost:8000/' : 'http://flandre.ltd/'}admin/seeQuestionnaire?id=${selectedRowId}`}
+        <a href={`${process.env.Node_ENV === 'development' ? 'http://localhost:8000/' : 'http://chinosama.cn/'}admin/seeQuestionnaire?id=${selectedRowId}`}>
+          {`${process.env.NODE_ENV === 'development' ? 'http://localhost:8000/' : 'http://chinosama.cn/'}admin/seeQuestionnaire?id=${selectedRowId}`}
         </a>
         </Form.Item>
         <Form.Item>

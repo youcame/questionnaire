@@ -12,10 +12,10 @@ export default [
     path: '/admin',
     name: '管理页面',
     icon: 'crown',
-    access: 'canAdmin',
+    // access: 'canAdmin',
     component: './Admin',
     routes: [
-      { path: '/admin/userManage', component: './Admin/UserManage', name: '用户管理'},
+      { path: '/admin/userManage', component: './Admin/UserManage', name: '用户管理', access: 'canAdmin'},
       { path: '/admin/projectManage', component: './Admin/ProjectManage', name: '项目管理'},
       { path: '/admin/questionnaireManage', component: './Admin/QuestionnairManage', name: '问卷管理'},
       { path: '/admin/answeredSurvey', component: './Admin/AnsweredSurvey'},

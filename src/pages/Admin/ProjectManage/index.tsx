@@ -1,83 +1,95 @@
-import { useRef, useState } from 'react';
+import {useEffect, useRef, useState} from 'react';
 import type { ProColumns, ActionType } from '@ant-design/pro-table';
 import ProTable from '@ant-design/pro-table';
-import {createProject, deleteProject, modifyProject, searchProjects} from "@/services/ant-design-pro/api";
+import {createProject, currentUser, deleteProject, modifyProject, searchProjects} from "@/services/ant-design-pro/api";
 import {Button, Form, Input, Modal, message} from "antd";
 import type {API} from "@/services/ant-design-pro/typings";
 import {PlusOutlined} from "@ant-design/icons";
 import {history} from "umi";
-const columns: ProColumns<API.Project>[] = [
-  {
-    dataIndex: '#',
-    valueType: 'indexBorder',
-    width: 48,
-  },
-  {
-    title: '项目名称',
-    dataIndex: 'projectName',
-    copyable: true,
-  },
-  {
-    title: '项目描述',
-    dataIndex: 'projectDescription',
-    copyable: true,
-  },
-  {
-    title: '用户id',
-    dataIndex: 'userId',
-    copyable: true
-  },
-  {
-    title: '创建人',
-    dataIndex: 'createBy',
-    copyable: true,
-  },
-  {
-    title: '创建时间',
-    dataIndex: 'createTime',
-    valueType: 'dateTime',
-    copyable: true,
-  },
-  {
-    title: '更新时间',
-    dataIndex: 'updateTime',
-    valueType: 'dateTime',
-    copyable: true,
-  },
-  {
-    title: '更新者',
-    dataIndex: 'updateBy',
-    copyable: true,
-  },
-  {
-    title: '操作',
-    valueType: 'option',
-    render: (text, record, _, action) => [
-      <a
-        key="editable"
-        onClick={() => {
-          action?.startEditable?.(record.id as number);
-        }}
-      >
-        编辑
-      </a>,
-      <a
-        key="seeSurvey"
-        onClick={() => history.push(`/admin/questionnaireManage?current=1&pageSize=5&projectId=${record.id}`)}
-      >
-        查看所有问卷
-      </a>,
-      // <a href={record.url} target="_blank" rel="noopener noreferrer" key="view">
-      //   查看
-      // </a>,
-    ],
-  },
-];
 
 export default () => {
 
   const [modalVisible, setModalVisible] = useState(false);
-
+  const [user,setUser] = useState('');
+  useEffect(()=>{
+    const fetchData = async () => {
+      try {
+        const currentUserData = await currentUser();
+        setUser(currentUserData);
+      } catch (error) {
+        // 处理错误
+        console.error(error);
+      }
+    };
+    fetchData();
+  },[])
+  const columns: ProColumns<API.Project>[] = [
+    {
+      dataIndex: '#',
+      valueType: 'indexBorder',
+      width: 48,
+    },
+    {
+      title: '项目名称',
+      dataIndex: 'projectName',
+      copyable: true,
+    },
+    {
+      title: '项目描述',
+      dataIndex: 'projectDescription',
+      copyable: true,
+    },
+    {
+      title: '用户id',
+      dataIndex: 'userId',
+      copyable: true
+    },
+    {
+      title: '创建人',
+      dataIndex: 'createBy',
+      copyable: true,
+    },
+    {
+      title: '创建时间',
+      dataIndex: 'createTime',
+      valueType: 'dateTime',
+      copyable: true,
+    },
+    {
+      title: '更新时间',
+      dataIndex: 'updateTime',
+      valueType: 'dateTime',
+      copyable: true,
+    },
+    {
+      title: '更新者',
+      dataIndex: 'updateBy',
+      copyable: true,
+    },
+    {
+      title: '操作',
+      valueType: 'option',
+      render: (text, record, _, action) => [
+        user.userRole===1?<a
+          key="editable"
+          onClick={() => {
+            action?.startEditable?.(record.id as number);
+          }}
+        >
+          编辑
+        </a>:null,
+        <a
+          key="seeSurvey"
+          onClick={() => history.push(`/admin/questionnaireManage?current=1&pageSize=5&projectId=${record.id}`)}
+        >
+          查看所有问卷
+        </a>,
+        // <a href={record.url} target="_blank" rel="noopener noreferrer" key="view">
+        //   查看
+        // </a>,
+      ],
+    },
+  ];
   const showModal = () => {
     setModalVisible(true);
   };

@@ -131,21 +131,25 @@ export default () => {
       title: '能回答的次数',
       dataIndex: 'totalTimes',
       copyable: true,
+      hideInSearch: true,
     },
     {
       title: '创建时间',
       dataIndex: 'createTime',
       valueType: 'dateTime',
+      hideInSearch: true,
     },
     {
       title: '更新时间',
       dataIndex: 'updateTime',
       valueType: 'dateTime',
+      hideInSearch: true,
       copyable: true,
     },
     {
       title: '状态',
       dataIndex: 'surveyStatus',
+      hideInSearch: true,
       valueType: 'select',
       valueEnum: {
         0: { text: '未发布', status: 'Success' },

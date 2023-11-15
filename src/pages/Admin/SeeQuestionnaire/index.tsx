@@ -79,7 +79,6 @@ const SurveyDisplayPage = () => {
   };
   //const initAns: ReturnAnsQuestions = useRef([]);
 
-  //todo: 提交问卷的逻辑
   const handleFormSubmit = async (values: any) => {
     const curUser = await currentUser();
     // 转换原始数据为 ReturnAnsQuestions 格式

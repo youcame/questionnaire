@@ -150,6 +150,7 @@ export default () => {
       title: '状态',
       dataIndex: 'surveyStatus',
       hideInSearch: true,
+      hideInForm: true,
       valueType: 'select',
       valueEnum: {
         0: { text: '未发布', status: 'Success' },

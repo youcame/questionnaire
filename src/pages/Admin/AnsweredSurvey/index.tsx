@@ -17,6 +17,7 @@ const columns: ProColumns<API.Answersheet>[] = [
   {
     title: '问卷Id',
     dataIndex: 'surveyId',
+    hideInForm: true,
     copyable: true,
   },
   {

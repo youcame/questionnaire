@@ -1,3 +1,5 @@
+import {currentUser} from "@/services/ant-design-pro/api";
+
 export default [
   {
     path: '/user',
@@ -10,9 +12,8 @@ export default [
   { path: '/welcome', icon: 'smile', component: './Welcome', name: "欢迎"},
   {
     path: '/admin',
-    name: '管理页面',
-    icon: 'crown',
-    // access: 'canAdmin',
+    name: '主页面',
+    icon: 'user',
     component: './Admin',
     routes: [
       { path: '/admin/userManage', component: './Admin/UserManage', name: '用户管理', access: 'canAdmin'},

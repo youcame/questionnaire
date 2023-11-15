@@ -125,10 +125,6 @@ export default () => {
           text: '自选风格',
           status: 'Default',
         },
-        4: {
-          text: '面向群众',
-          status: 'Default',
-        },
       },
     },
     {
@@ -140,7 +136,6 @@ export default () => {
       title: '创建时间',
       dataIndex: 'createTime',
       valueType: 'dateTime',
-      copyable: true,
     },
     {
       title: '更新时间',
@@ -177,13 +172,13 @@ export default () => {
           编辑
         </a>,
         //`http://localhost:8000/admin/questionnaireCreate?id=${record.id}`
-        <a href={`${process.env.NODE_ENV === 'development' ? 'http://localhost:8000/' : 'http://chinosama.cn/'}admin/questionnaireCreate?id=${record.id}`} rel="noopener noreferrer" key="modify">
+        <a href={`${process.env.NODE_ENV === 'development' ? 'http://localhost:8000/' : 'https://survey.chinosama.cn/'}admin/questionnaireCreate?id=${record.id}`} rel="noopener noreferrer" key="modify">
           修改问题
         </a>,
-        <a href={`${process.env.NODE_ENV === 'development' ? 'http://localhost:8000/' : 'http://chinosama.cn/'}admin/seeQuestionnaire?id=${record.id}`} rel="noopener noreferrer" key="viewSurvey">
-          预览问卷
+        <a href={`${process.env.NODE_ENV === 'development' ? 'http://localhost:8000/' : 'https://survey.chinosama.cn/'}admin/seeQuestionnaire?id=${record.id}`} rel="noopener noreferrer" key="viewSurvey">
+          回答问卷
         </a>,
-        <a href={`${process.env.NODE_ENV === 'development' ? 'http://localhost:8000/' : 'http://chinosama.cn/'}admin/answeredSurvey?surveyId=${record.id}`} rel="noopener noreferrer" key="viewAnswer">
+        <a href={`${process.env.NODE_ENV === 'development' ? 'http://localhost:8000/' : 'https://survey.chinosama.cn/'}admin/answeredSurvey?surveyId=${record.id}`} rel="noopener noreferrer" key="viewAnswer">
           查看回答
         </a>,
         <a
@@ -194,10 +189,10 @@ export default () => {
       </a>
 
       ]:[
-        <a href={`${process.env.NODE_ENV === 'development' ? 'http://localhost:8000/' : 'http://chinosama.cn/'}admin/seeQuestionnaire?id=${record.id}`} rel="noopener noreferrer" key="viewSurvey">
+        <a href={`${process.env.NODE_ENV === 'development' ? 'http://localhost:8000/' : 'https://survey.chinosama.cn/'}admin/seeQuestionnaire?id=${record.id}`} rel="noopener noreferrer" key="viewSurvey">
           填写问卷
         </a>,
-        <a href={`${process.env.NODE_ENV === 'development' ? 'http://localhost:8000/' : 'http://chinosama.cn/'}admin/answeredSurvey?surveyId=${record.id}`} rel="noopener noreferrer" key="viewAnswer">
+        <a href={`${process.env.NODE_ENV === 'development' ? 'http://localhost:8000/' : 'https://survey.chinosama.cn/'}admin/answeredSurvey?surveyId=${record.id}`} rel="noopener noreferrer" key="viewAnswer">
           查看回答
         </a>,
       ],
@@ -274,8 +269,8 @@ export default () => {
         style={{ maxWidth: 600 }}
       >
         <Form.Item name="surveyId" label="问卷链接" wrapperCol={{ span: 0, offset: 0 }} style={{ width: '80%' }}>
-        <a href={`${process.env.Node_ENV === 'development' ? 'http://localhost:8000/' : 'http://chinosama.cn/'}admin/seeQuestionnaire?id=${selectedRowId}`}>
-          {`${process.env.NODE_ENV === 'development' ? 'http://localhost:8000/' : 'http://chinosama.cn/'}admin/seeQuestionnaire?id=${selectedRowId}`}
+        <a href={`${process.env.Node_ENV === 'development' ? 'http://localhost:8000/' : 'https://survey.chinosama.cn/'}admin/seeQuestionnaire?id=${selectedRowId}`}>
+          {`${process.env.NODE_ENV === 'development' ? 'http://localhost:8000/' : 'https://survey.chinosama.cn/'}admin/seeQuestionnaire?id=${selectedRowId}`}
         </a>
         </Form.Item>
         <Form.Item>

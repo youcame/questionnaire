@@ -1,8 +1,8 @@
 import Footer from '@/components/Footer';
 import {SYSTEM_LOGO} from '@/constants'
 import {LockOutlined, UserOutlined,} from '@ant-design/icons';
-import {LoginForm, ProFormText,} from '@ant-design/pro-components';
-import {Alert, message, Tabs} from 'antd';
+import {LoginForm, ProFormCheckbox, ProFormText,} from '@ant-design/pro-components';
+import {Alert, Button, Divider, message, Tabs} from 'antd';
 import React, {useState} from 'react';
 import {history} from 'umi';
 import styles from './index.less';
@@ -139,7 +139,19 @@ const Register: React.FC = () => {
               />
             </>
           )}
+          <div
+            style={{
+              marginBottom: 24,
+            }}
+          >
+          </div>
+          <Button block type="primary" style={{marginBottom: "8px",height: "36px"}} onClick={()=> {
+            history.push("/user/login")
+          }}>
+            返回
+          </Button>
         </LoginForm>
+
       </div>
       <Footer />
     </div>

@@ -63,7 +63,7 @@
     "react-dom": "^17.0.0",
     "react-helmet-async": "^1.2.0",
     "umi": "^3.5.0",
-    "yarn": "^1.22.19"
+    "yarn": "^1.22.21"
   },
   "devDependencies": {
     "@ant-design/pro-cli": "^2.1.0",

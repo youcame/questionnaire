@@ -126,7 +126,6 @@ const Demo = () => {
           { value: '1', label: '限时问卷' },
           { value: '2', label: '限次问卷' },
           { value: '3', label: '自选风格' },
-          { value: '4', label: '面向群众' },
         ]}
         placeholder="请选择问卷类型"
         rules={[{ required: true, message: '请选择问卷类型' }]}

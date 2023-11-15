@@ -8,7 +8,6 @@ import {PlusOutlined} from "@ant-design/icons";
 import {history} from "umi";
 
 export default () => {
-
   const [modalVisible, setModalVisible] = useState(false);
   const [user,setUser] = useState('');
   useEffect(()=>{
@@ -42,7 +41,8 @@ export default () => {
     {
       title: '用户id',
       dataIndex: 'userId',
-      copyable: true
+      copyable: true,
+      hideInSearch: true,
     },
     {
       title: '创建人',
@@ -53,17 +53,20 @@ export default () => {
       title: '创建时间',
       dataIndex: 'createTime',
       valueType: 'dateTime',
-      copyable: true,
+      hideInSearch: true,
     },
     {
       title: '更新时间',
       dataIndex: 'updateTime',
       valueType: 'dateTime',
+      editable: false,
+      hideInSearch: true,
       copyable: true,
     },
     {
       title: '更新者',
       dataIndex: 'updateBy',
+      hideInSearch: true,
       copyable: true,
     },
     {
@@ -93,7 +96,7 @@ export default () => {
   const showModal = () => {
     setModalVisible(true);
   };
-
+  const actionRef = useRef<ActionType>();
   const handleCreateProject = async (values: API.Project) => {
     try{
       await createProject(values);
@@ -102,12 +105,11 @@ export default () => {
     }catch(error){
       message.error("提交失败了！")
     }
-
+    actionRef.current?.reload();
     setModalVisible(false); // 关闭弹出框
     return true;
   };
 
-  const actionRef = useRef<ActionType>();
   const handleUpdate = async (value: API.Project) =>{
     const {id, projectName, projectDescription, userId, createBy, createTime, updateTime, updateBy} = value;
 

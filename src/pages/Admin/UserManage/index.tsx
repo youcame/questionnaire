@@ -24,6 +24,7 @@ const columns: ProColumns<API.CurrentUser>[] = [
   {
     title: '头像',
     dataIndex: 'avatarUrl',
+    hideInSearch: true,
     render: (_, record) => (
       <div>
         <Image src={record.avatarUrl} width={100} />
@@ -34,6 +35,7 @@ const columns: ProColumns<API.CurrentUser>[] = [
     title: '性别',
     dataIndex: 'gender',
     valueType: 'select',
+    hideInSearch: true,
     valueEnum: {
       0: { text: '男', status: 'Default' },
       1: {
@@ -45,17 +47,20 @@ const columns: ProColumns<API.CurrentUser>[] = [
   {
     title: '电话',
     dataIndex: 'phone',
+    hideInSearch: true,
     copyable: true,
   },
   {
     title: '邮件',
     dataIndex: 'email',
+    hideInSearch: true,
     copyable: true,
   },
   {
     title: '状态',
     dataIndex: 'userStatus',
     valueType: 'select',
+    hideInSearch: true,
     valueEnum: {
       0: { text: '正常', status: 'Success' },
       1: {
@@ -68,6 +73,7 @@ const columns: ProColumns<API.CurrentUser>[] = [
     title: '角色',
     dataIndex: 'userRole',
     valueType: 'select',
+    hideInSearch: true,
     valueEnum: {
       0: { text: '普通用户', status: 'Default' },
       1: {
@@ -78,6 +84,7 @@ const columns: ProColumns<API.CurrentUser>[] = [
   },
   {
     title: '创建时间',
+    hideInSearch: true,
     dataIndex: 'createTime',
     valueType: 'dateTime',
   },
@@ -104,7 +111,7 @@ export default () => {
   const showModal = () => {
     setModalVisible(true);
   };
-
+  const actionRef = useRef<ActionType>();
   const handleCreateUser = async (values: API.RegisterParams) => {
     try{
       const result = await register(values);
@@ -113,11 +120,11 @@ export default () => {
     }catch(error){
       message.error("注册失败了,不造为啥！")
     }
+    actionRef.current?.reload();
     setModalVisible(false); // 关闭弹出框
     return true;
   };
 
-  const actionRef = useRef<ActionType>();
   const handleUpdate = async (value: API.CurrentUser) =>{
     const {id, username, phone, email, userStatus, userRole, gender, avatarUrl} = value;
     try{

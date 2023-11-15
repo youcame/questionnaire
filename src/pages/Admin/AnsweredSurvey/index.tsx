@@ -23,7 +23,7 @@ const columns: ProColumns<API.Answersheet>[] = [
     title: '操作',
     valueType: 'option',
     render: (text, record, _, action) => [
-      <a href={`${process.env.NODE_ENV === 'development' ? 'http://localhost:8000' : 'http://chinosama.cn'}/admin/seeAnswer?id=${record.surveyId}&answerId=${record.id}`} rel="noopener noreferrer" key="view">
+      <a href={`${process.env.NODE_ENV === 'development' ? 'http://localhost:8000' : 'https://survey.chinosama.cn'}/admin/seeAnswer?id=${record.surveyId}&answerId=${record.id}`} rel="noopener noreferrer" key="view">
         查看
       </a>,
     ],

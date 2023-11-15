@@ -26,7 +26,7 @@ export default {
   },
   pre: {
     '/api/': {
-      target: 'chinosama.cn',
+      target: 'survey-backend.chinosama.cn',
       changeOrigin: true,
       pathRewrite: { '^': '' },
     },

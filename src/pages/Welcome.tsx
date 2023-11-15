@@ -24,37 +24,41 @@ const Welcome: React.FC = () => {
             marginBottom: 24,
           }}
         />
-        <Typography.Text strong>
-          <a
-            href="https://procomponents.ant.design/components/table"
-            rel="noopener noreferrer"
-            target="__blank"
-          >
-            欢迎关注
-          </a>
+        <Typography.Text strong style={{fontSize: "24px"}}>
+          这是我制作的第一个像样的项目ヾ(≧∇≦*)ゝ
+        {/*  <a*/}
+        {/*    href="https://procomponents.ant.design/components/table"*/}
+        {/*    rel="noopener noreferrer"*/}
+        {/*    target="__blank"*/}
+        {/*  >*/}
+        {/*    欢迎关注*/}
+        {/*  </a>*/}
+        {/*</Typography.Text>*/}
+        {/*/!*<CodePreview>https://space.bilibili.com/177253495/?spm_id_from=333.999.0.0*!/*/}
+        {/*/!*  https://space.bilibili.com/1057683512/?spm_id_from=333.999.0.0</CodePreview>*!/*/}
+        {/*<br></br>*/}
+        {/*<Typography.Text strong>*/}
+        {/*  <a*/}
+        {/*    href="https://space.bilibili.com/177253495/?spm_id_from=333.999.0.0"*/}
+        {/*    rel="noopener noreferrer"*/}
+        {/*    target="__blank"*/}
+        {/*  >*/}
+        {/*    -NaNNil-的b站帐号*/}
+        {/*  </a>*/}
+        {/*  {' '}*/}
+        {/*  和*/}
+        {/*  {' '}*/}
+        {/*  <a*/}
+        {/*    href="https://space.bilibili.com/1057683512/?spm_id_from=333.999.0.0"*/}
+        {/*    rel="noopener noreferrer"*/}
+        {/*    target="__blank"*/}
+        {/*  >*/}
+        {/*    じゅんんん的b站帐号*/}
+        {/*  </a>*/}
         </Typography.Text>
-        {/*<CodePreview>https://space.bilibili.com/177253495/?spm_id_from=333.999.0.0*/}
-        {/*  https://space.bilibili.com/1057683512/?spm_id_from=333.999.0.0</CodePreview>*/}
-        <br></br>
-        <Typography.Text strong>
-          <a
-            href="https://space.bilibili.com/177253495/?spm_id_from=333.999.0.0"
-            rel="noopener noreferrer"
-            target="__blank"
-          >
-            -NaNNil-的b站帐号
-          </a>
-          {' '}
-          和
-          {' '}
-          <a
-            href="https://space.bilibili.com/1057683512/?spm_id_from=333.999.0.0"
-            rel="noopener noreferrer"
-            target="__blank"
-          >
-            じゅんんん的b站帐号
-          </a>
-        </Typography.Text>
+        <Typography style={{fontSize: "30px"}}>
+          现在回过头来看，能够优化的地方属实是多的不得了~
+        </Typography>
       </Card>
     </PageContainer>
   );

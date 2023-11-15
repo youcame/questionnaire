@@ -41,3 +41,4 @@ screenshot
 node_modules/
 
 build
+.vercel

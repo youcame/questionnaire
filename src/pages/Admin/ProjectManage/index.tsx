@@ -9,7 +9,7 @@ import {history} from "umi";
 
 export default () => {
   const [modalVisible, setModalVisible] = useState(false);
-  const [user,setUser] = useState('');
+  const [user,setUser] = useState<API.CurrentUser>();
   useEffect(()=>{
     const fetchData = async () => {
       try {
@@ -73,7 +73,7 @@ export default () => {
       title: '操作',
       valueType: 'option',
       render: (text, record, _, action) => [
-        user.userRole===1?<a
+        user?.userRole===1?<a
           key="editable"
           onClick={() => {
             action?.startEditable?.(record.id as number);

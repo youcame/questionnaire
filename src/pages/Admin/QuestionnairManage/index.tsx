@@ -150,17 +150,17 @@ export default () => {
       title: '状态',
       dataIndex: 'surveyStatus',
       hideInSearch: true,
-      hideInForm: true,
+      // hideInForm: true,
       valueType: 'select',
       valueEnum: {
-        0: { text: '未发布', status: 'Success' },
+        0: { text: '未发布', status: 'Default' },
         1: {
           text: '发布中',
           status: 'Success',
         },
         2: {
           text: '已完结',
-          status: 'Default',
+          status: 'Warning',
         },
       },
     },
@@ -192,8 +192,7 @@ export default () => {
       >
         生成链接
       </a>
-
-      ]:[
+      ]:record.surveyStatus===0?null:[
         <a href={`${process.env.NODE_ENV === 'development' ? 'http://localhost:8000/' : 'https://survey.chinosama.cn/'}admin/seeQuestionnaire?id=${record.id}`} rel="noopener noreferrer" key="viewSurvey">
           填写问卷
         </a>,

@@ -50,4 +50,18 @@ export default defineConfig({
   mfsu: {},
   webpack5: {},
   exportStatic: {},
+  openAPI: [
+    {
+      requestLibPath: "import { request } from '@umijs/max'",
+      // 或者使用在线的版本
+      schemaPath: "http://localhost:8123/api/v2/api-docs",
+      //schemaPath: join(__dirname, 'oneapi.json'),
+      projectName: "questionnaire"
+    },
+    {
+      requestLibPath: "import { request } from '@umijs/max'",
+      schemaPath: 'https://gw.alipayobjects.com/os/antfincdn/CA1dOm%2631B/openapi.json',
+      projectName: 'swagger',
+    },
+  ],
 });

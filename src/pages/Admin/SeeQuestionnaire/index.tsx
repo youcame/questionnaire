@@ -1,5 +1,5 @@
 import {useEffect, useState} from 'react';
-import {Divider, Typography, message} from 'antd';
+import {Divider, Typography, message, Anchor, Col} from 'antd';
 import {ProCard, CheckCard, ProForm,} from '@ant-design/pro-components';
 import {currentUser, getSurveyById, recordAnswer} from '@/services/ant-design-pro/api';
 import {API} from '@/services/ant-design-pro/typings';
@@ -97,8 +97,8 @@ const SurveyDisplayPage = () => {
     }
     try {
       const res = await recordAnswer(returnAnsQuestions);
-      if(res!=null)message.success("保存成功");
-      //await history.goBack();
+      if(res!=null)await message.success("保存成功");
+      history.push(`/admin/answeredSurvey?surveyId=${searchParams.get('id')}`);
     }catch (error){
       //message.error(error);
     }
@@ -126,6 +126,7 @@ const SurveyDisplayPage = () => {
           {addQuestion.map((question, index) => {
                 return (
                   <ProCard
+                    id={String(index + 1)}
                     key={question.questionName+`${index}`}
                     headerBordered
                     title={`第${index + 1}题`}

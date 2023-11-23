@@ -1,7 +1,7 @@
 /**
  * 系统图标地址
  */
-export const SYSTEM_LOGO = "https://avatars.githubusercontent.com/u/103118339?v=4"
+export const SYSTEM_LOGO = "https://hzh-1318734603.cos.ap-shanghai.myqcloud.com/main.jpg"
 export const BILIBILI_LINK = "https://space.bilibili.com/234120375?spm_id_from=333.1245.0.0"
 /**
  * 加载失败图标

@@ -130,7 +130,7 @@ export default () => {
     {
       title: '能回答的次数',
       dataIndex: 'totalTimes',
-      copyable: true,
+      hideInTable: true,
       hideInSearch: true,
     },
     {

@@ -74,6 +74,7 @@ const SurveyDisplayPage = () => {
         <ProForm.Item name={'answerSheet'}>
           {addQuestion.map((question, index) => {
             const questionData = answerData?.questions[index];
+            const statisticsWithLineBreaks = questionData?.statistics.replace(/\n/g, '<br />');
             return (
               <>
               <ProCard
@@ -125,7 +126,12 @@ const SurveyDisplayPage = () => {
                 </CheckCard.Group>
                 <br/>
                 <Typography.Text strong style={{ whiteSpace: "pre-line" }}>
-                  {" " + questionData?.statistics}
+                  {questionData?.statistics.split('\\n').map((line, index, array) => (
+                    index === array.length - 1 ? line : `${line}`
+                  )).join('\n')
+
+                  }
+
                 </Typography.Text>
               </ProCard>
             </>

@@ -258,3 +258,12 @@ export async function recordAnswer(body: API.recordUserAnswer, options?: { [key:
   });
 }
 
+/**查询ai回答接口 Get /api/answer/ai/mq */
+export async function searchAi(options?: { [key: string]: any }) {
+  return request<string>('/api/answer/ai/mq', {
+    method: 'GET',
+    params: options,
+    ...(options || {}),
+  });
+}
+

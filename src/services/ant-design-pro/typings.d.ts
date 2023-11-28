@@ -84,6 +84,11 @@ declare namespace API {
     pageSize?: number;
   };
 
+  type AiResponse = {
+    aiStatistic?: string;
+    aiStatus?: string;
+  };
+
   type RuleListItem = {
     key?: number;
     disabled?: boolean;

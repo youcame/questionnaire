@@ -1,7 +1,7 @@
 // @ts-ignore
 /* eslint-disable */
 import request from '@/plugins/globalRequest';
-import { API} from '@/services/ant-design-pro/typings';
+import {API} from '@/services/ant-design-pro/typings';
 /** 获取当前的用户 GET /api/user/current */
 export async function currentUser(options?: { [key: string]: any }) {
   return request<API.CurrentUser>('/api/user/current', {
@@ -261,6 +261,15 @@ export async function recordAnswer(body: API.recordUserAnswer, options?: { [key:
 /**查询ai回答接口 Get /api/answer/ai/mq */
 export async function searchAi(options?: { [key: string]: any }) {
   return request<string>('/api/answer/ai/mq', {
+    method: 'GET',
+    params: options,
+    ...(options || {}),
+  });
+}
+
+/**查询ai回答接口 Get /api/answer/get/ai */
+export async function getAiResponse(options?: { [key: string]: any }) {
+  return request<API.AiResponse>('/api/answer/get/ai', {
     method: 'GET',
     params: options,
     ...(options || {}),

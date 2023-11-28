@@ -1,10 +1,10 @@
-import {useRef, useState} from 'react';
+import {useEffect, useRef, useState} from 'react';
 import type { ProColumns, ActionType } from '@ant-design/pro-table';
-import {getAnswers, searchAi,} from "@/services/ant-design-pro/api";
+import {getAiResponse, getAnswers, searchAi,} from "@/services/ant-design-pro/api";
 import {API} from "@/services/ant-design-pro/typings";
 import { ProTable } from '@ant-design/pro-components';
-import {Button, Card} from "antd";
-import {RedditOutlined} from "@ant-design/icons";
+import {Button, Card, Spin} from "antd";
+import {RedditOutlined, SyncOutlined} from "@ant-design/icons";
 const columns: ProColumns<API.Answersheet>[] = [
   {
     dataIndex: '#',
@@ -37,20 +37,43 @@ export default () => {
   const searchParams = new URLSearchParams(window.location.search);
   const param = searchParams.get("surveyId");
   const actionRef = useRef<ActionType>();
-  const [analyseResult,setResult] = useState<string>('')
+  const [analyseResult,setResult] = useState<string|undefined>('')
+  const [aiStatus,setAiStatus] = useState<string|undefined>('')
   const [submitting,setSubmitting] = useState<boolean>(false)
+
+  //这个是从数据库里查的
+  const getAiResponseUsingGet = async ()=>{
+    const res = await getAiResponse({
+      surveyId: Number(param),
+    })
+    setAiStatus(res?.aiStatus);
+    if(aiStatus==="finish") {
+      setResult(res?.aiStatistic);
+      setSubmitting(false);
+    }
+    else if(aiStatus==="wait") {
+      setResult("欢迎体验ai分析功能，快来试试吧ヾ(≧∇≦*)ゝ");
+    }
+    else {
+      setResult("数据分析中，这个时间可能会有点长，请稍后刷新...");
+    };
+    //else setResult("系统可能出现了问题，工作人员正在尽力抢救~")
+  }
+  //点击智能分析按钮之后的处理
   const analyseQuestion = async ()=>{
     if(submitting){
       return;
     }
     setSubmitting(true);
-    setResult("数据分析中，这个时间可能会有点长，请稍等...");
+    setResult("数据分析中，这个时间可能会有点长，请稍后刷新...");
+    setAiStatus("running")
     const res = await searchAi({
       surveyId: Number(param),
     })
-    console.log(res);
-    setSubmitting(false);
   }
+  useEffect(()=>{
+    getAiResponseUsingGet();
+  },[])
   return (
     <>
       <ProTable<API.Answersheet>
@@ -103,8 +126,13 @@ export default () => {
       />
       <br/>
       <br/>
-      <Card title={"人工智障分析结果:"} >
-        {analyseResult}
+      <Card title={"人工智能分析结果:"} extra={
+        <div>
+          {"刷新"}&nbsp;
+          <SyncOutlined onClick={getAiResponseUsingGet}/>
+        </div>
+      }>
+        {aiStatus==="running"&&<Spin size="small"/>}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{analyseResult}
       </Card>
     </>
   );

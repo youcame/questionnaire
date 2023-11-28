@@ -1,7 +1,9 @@
-import { PageContainer } from '@ant-design/pro-components';
-import { Alert, Card, Typography } from 'antd';
+import {PageContainer, ProCard} from '@ant-design/pro-components';
+import {Alert, Button, Card, Typography} from 'antd';
 import React from 'react';
 import styles from './Welcome.less';
+import {history} from "@@/core/history";
+import SmileOutlined from "@ant-design/icons/SmileOutlined";
 const CodePreview: React.FC = ({ children }) => (
   <pre className={styles.pre}>
     <code>
@@ -56,9 +58,28 @@ const Welcome: React.FC = () => {
         {/*    じゅんんん的b站帐号*/}
         {/*  </a>*/}
         </Typography.Text>
-        <Typography style={{fontSize: "30px"}}>
-          现在回过头来看，能够优化的地方属实是多的不得了~
-        </Typography>
+      </Card>
+      <br/>
+      <Card>
+        <ProCard title="项目优势？" ghost gutter={8} collapsible extra={
+          <Button
+            type={"primary"}
+            onClick={()=>history.push('/admin/questionnaireManage?current=1&pageSize=5')}
+          >
+            <SmileOutlined />现在开始！
+          </Button>
+        }>
+          <ProCard layout="center" bordered title="自定义问题" hoverable >
+            在这里，你可以创建你自己的项目，也可以创建你自己的问题！只要不违规，这里的一切都可以由你来创建!
+          </ProCard>
+          <ProCard layout="center" bordered title="查看回答情况" hoverable>
+            在这里，你可以查看所有用户的回答，不用花钱就可以看到问卷的数据统计情况，得到大家的观点与想法！
+          </ProCard>
+          <ProCard layout="center" bordered title="ai智能分析" hoverable>
+
+            在这里，你可以使用ai智能分析，为你感兴趣的问卷自动生成ai总结，省去大量思考与分析数据的时间！
+          </ProCard>
+        </ProCard>
       </Card>
     </PageContainer>
   );

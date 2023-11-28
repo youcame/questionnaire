@@ -38,7 +38,7 @@ export default () => {
   const param = searchParams.get("surveyId");
   const actionRef = useRef<ActionType>();
   const [analyseResult,setResult] = useState<string|undefined>('')
-  const [aiStatus,setAiStatus] = useState<string|undefined>('')
+  const [aiStatus,setAiStatus] = useState<string|undefined>('finish')
   const [submitting,setSubmitting] = useState<boolean>(false)
 
   //这个是从数据库里查的
@@ -46,7 +46,7 @@ export default () => {
     const res = await getAiResponse({
       surveyId: Number(param),
     })
-    setAiStatus(res?.aiStatus);
+    await setAiStatus(res?.aiStatus);
     if(aiStatus==="finish") {
       setResult(res?.aiStatistic);
       setSubmitting(false);
@@ -54,8 +54,9 @@ export default () => {
     else if(aiStatus==="wait") {
       setResult("欢迎体验ai分析功能，快来试试吧ヾ(≧∇≦*)ゝ");
     }
+    else if(aiStatus==="failed")setResult("系统繁忙，请稍后再试(ಥ﹏ಥ)")
     else {
-      setResult("数据分析中，这个时间可能会有点长，请稍后刷新...");
+      setResult("数据分析中，这个时间可能会有点长，请稍后刷新°(°ˊДˋ°) °");
     };
     //else setResult("系统可能出现了问题，工作人员正在尽力抢救~")
   }
@@ -65,7 +66,7 @@ export default () => {
       return;
     }
     setSubmitting(true);
-    setResult("数据分析中，这个时间可能会有点长，请稍后刷新...");
+    setResult("数据分析中，这个时间可能会有点长，请稍后刷新°(°ˊДˋ°) °");
     setAiStatus("running")
     const res = await searchAi({
       surveyId: Number(param),
@@ -132,7 +133,7 @@ export default () => {
           <SyncOutlined onClick={getAiResponseUsingGet}/>
         </div>
       }>
-        {aiStatus==="running"&&<Spin size="small"/>}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{analyseResult}
+        {aiStatus==="running"&&<Spin size="small"/>}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{analyseResult===null?"欢迎体验ai分析功能，快来试试吧ヾ(≧∇≦*)ゝ":analyseResult}
       </Card>
     </>
   );

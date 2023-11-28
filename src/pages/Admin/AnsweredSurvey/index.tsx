@@ -47,14 +47,14 @@ export default () => {
       surveyId: Number(param),
     })
     await setAiStatus(res?.aiStatus);
-    if(aiStatus==="finish") {
+    if(res?.aiStatus==="finish") {
       setResult(res?.aiStatistic);
       setSubmitting(false);
     }
-    else if(aiStatus==="wait") {
+    else if(res?.aiStatus==="wait") {
       setResult("欢迎体验ai分析功能，快来试试吧ヾ(≧∇≦*)ゝ");
     }
-    else if(aiStatus==="failed")setResult("系统繁忙，请稍后再试(ಥ﹏ಥ)")
+    else if(res?.aiStatus==="failed")setResult("系统繁忙，请稍后再试(ಥ﹏ಥ)")
     else {
       setResult("数据分析中，这个时间可能会有点长，请稍后刷新°(°ˊДˋ°) °");
     };

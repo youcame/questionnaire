@@ -76,8 +76,18 @@ const Welcome: React.FC = () => {
             在这里，你可以查看所有用户的回答，不用花钱就可以看到问卷的数据统计情况，得到大家的观点与想法！
           </ProCard>
           <ProCard layout="center" bordered title="ai智能分析" hoverable>
-
             在这里，你可以使用ai智能分析，为你感兴趣的问卷自动生成ai总结，省去大量思考与分析数据的时间！
+          </ProCard>
+        </ProCard>
+      </Card>
+      <br/>
+      <Card>
+        <ProCard title="技术栈" ghost gutter={8} collapsible>
+          <ProCard layout="center" bordered  hoverable >
+            前端: react + node16 + umi + ant design + ant design pro
+          </ProCard>
+          <ProCard layout="center" bordered hoverable>
+            后端: springboot + mybatis + redis + redission ( 锁 + 限流 ) + rabbitMQ + AIGC
           </ProCard>
         </ProCard>
       </Card>

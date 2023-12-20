@@ -45,7 +45,7 @@ const Register: React.FC = () => {
           redirect: string;
         };
         //原本为“redirect || '/'”
-        history.push('user/login?redirect='+redirect);
+        history.push('login?redirect='+redirect);
         return;
       }else{
         throw new Error(`register error id = ${id}`);
